@@ -4,12 +4,12 @@ namespace WADemo.UI;
 
 public class View
 {
-    private static void Display(string message)
+    internal static void Display(string message)
     {
         Console.WriteLine(message);
     }
 
-    private static void DisplayHeader(string header)
+    public static void DisplayHeader(string header)
     {
         Display(header);
         Display("------------------------------------------");
@@ -35,7 +35,7 @@ Description: {record.Description}
         }
     }
 
-    private static int GetMainChoice()
+    internal static int GetMainChoice()
     {
         DisplayHeader("Main Menu");
 
