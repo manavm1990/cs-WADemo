@@ -34,4 +34,69 @@ Description: {record.Description}
             Console.WriteLine("--------------");
         }
     }
+
+    // TODO: Consider reusing this method to also get date ranges for start and end dates
+    private static DateTime GetWeatherRecord()
+    {
+        return Validation.PromptUser4Date("Date (MM/dd/yyyy): ");
+    }
+
+    private static WeatherRecord AddWeatherRecord()
+    {
+        var date = Validation.PromptUser4Date("Date (MM/dd/yyyy): ");
+        var high = Validation.PromptUser4Decimal("High (F): ");
+        var low = Validation.PromptUser4Decimal("Low (F): ");
+        var humidity = Validation.PromptUser4Decimal("Humidity (%): ");
+        var description = Validation.PromptRequired("Description: ");
+
+        return new WeatherRecord
+            {Date = date, HighTemp = high, LowTemp = low, Humidity = humidity, Description = description};
+    }
+
+    private static WeatherRecord UpdateWeatherRecord(WeatherRecord originalRecord)
+    {
+        var updatedRecord = new WeatherRecord {Date = originalRecord.Date};
+
+        var newHigh = Validation.PromptUser($"High {originalRecord.HighTemp} (F): ");
+        if (string.IsNullOrEmpty(newHigh)) updatedRecord.HighTemp = originalRecord.HighTemp;
+        else
+        {
+            if (!decimal.TryParse(newHigh, out var newHighTemp))
+            {
+                updatedRecord.HighTemp = originalRecord.HighTemp;
+            }
+
+            updatedRecord.HighTemp = newHighTemp;
+        }
+
+        var newLow = Validation.PromptUser($"Low {originalRecord.LowTemp} (F): ");
+        if (string.IsNullOrEmpty(newLow)) updatedRecord.LowTemp = originalRecord.LowTemp;
+        else
+        {
+            if (!decimal.TryParse(newLow, out var newLowTemp))
+            {
+                updatedRecord.LowTemp = originalRecord.LowTemp;
+            }
+
+            updatedRecord.LowTemp = newLowTemp;
+        }
+
+        var newHumidity = Validation.PromptUser($"Humidity {originalRecord.Humidity} (%): ");
+        if (string.IsNullOrEmpty(newHumidity)) updatedRecord.Humidity = originalRecord.Humidity;
+        else
+        {
+            if (!decimal.TryParse(newHumidity, out var newHumidityTemp))
+            {
+                updatedRecord.Humidity = originalRecord.Humidity;
+            }
+
+            updatedRecord.Humidity = newHumidityTemp;
+        }
+
+        Display("Old Description: " + originalRecord.Description);
+        var newDescription = Validation.PromptUser("New Description: ");
+        updatedRecord.Description = string.IsNullOrEmpty(newDescription) ? originalRecord.Description : newDescription;
+
+        return updatedRecord;
+    }
 }

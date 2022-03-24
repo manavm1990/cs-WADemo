@@ -10,7 +10,7 @@ public class Validation
         Console.ReadLine();
     }
 
-    private static string PromptRequired(string message)
+    internal static string PromptRequired(string message)
     {
         string res = PromptUser(message);
         while (string.IsNullOrEmpty(res))
@@ -22,14 +22,14 @@ public class Validation
         return res;
     }
 
-    private static string PromptUser(string message)
+    internal static string PromptUser(string message)
     {
         Console.Write(message);
         return Console.ReadLine() ?? string.Empty;
     }
 
     // TODO: Look into using generics so we don't have to duplicate the same stuff for decimal and int
-    private static decimal PromptUser4Decimal(string message, decimal min = decimal.MinValue,
+    internal static decimal PromptUser4Decimal(string message, decimal min = decimal.MinValue,
         decimal max = decimal.MaxValue)
     {
         decimal result;
@@ -55,7 +55,7 @@ Press Enter to Continue");
     }
 
     // default here means it takes the absolute minimum value for a DateTime
-    private static DateTime PromptUser4Date(string message, DateTime max = default)
+    internal static DateTime PromptUser4Date(string message, DateTime max = default)
     {
         DateTime result;
         while (!(DateTime.TryParse(PromptUser(message), out result)) || (max != default && result > max))
