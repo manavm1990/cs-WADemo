@@ -33,9 +33,10 @@ public class Validation
         decimal max = decimal.MaxValue)
     {
         decimal result;
-        while(!decimal.TryParse(PromptUser(message), out result) || result < min || result > max)
+        while (!decimal.TryParse(PromptUser(message), out result) || result < min || result > max)
         {
-            Console.WriteLine("Input required❗");
+            PromptUser($@"Invalid Input, must be between {min} and {max}
+Press Enter to Continue");
         }
 
         return result;
