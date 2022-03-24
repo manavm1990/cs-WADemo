@@ -35,10 +35,37 @@ Description: {record.Description}
         }
     }
 
-    // TODO: Consider reusing this method to also get date ranges for start and end dates
-    private static DateTime GetWeatherRecord()
+    private static int GetMainChoice()
     {
-        return Validation.PromptUser4Date("Date (MM/dd/yyyy): ");
+        DisplayHeader("Main Menu");
+
+        return Validation.PromptUser4Int(@"
+1. Load a Record
+2. View Records by Date Range
+3. Add Record
+4. Edit Record
+5. Delete Record
+6. Quit
+
+Enter Choice: 
+", 1, 6);
+    }
+
+    private static int GetMode()
+    {
+        DisplayHeader("Welcome to the Weather Almanac. Please select an option:");
+        return Validation.PromptUser4Int(@"What mode would you like to run in?
+
+1. Live
+2. Test
+
+Select mode:", 1, 2);
+    }
+
+    // TODO: Consider reusing this method to also get date ranges for start and end dates
+    private static DateTime GetWeatherDate(string message = "Enter Record Date:")
+    {
+        return Validation.PromptUser4Date(message);
     }
 
     private static WeatherRecord AddWeatherRecord()

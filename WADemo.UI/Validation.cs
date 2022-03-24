@@ -42,7 +42,7 @@ Press Enter to Continue");
         return result;
     }
 
-    private static int PromptUser4Int(string message, int min = int.MinValue, int max = int.MaxValue)
+    internal static int PromptUser4Int(string message, int min = int.MinValue, int max = int.MaxValue)
     {
         int result;
         while (!(int.TryParse(PromptUser(message), out result)) || result < min || result > max)
