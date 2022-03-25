@@ -19,15 +19,10 @@ public class RecordService : IRecordService
                 {IsSuccess = false, Message = "Start date cannot be greater than end date"};
 
         // We get the records from the Data property that was set in the repository on the Result
-        List<WeatherRecord> allRecords = _recordRepository.Index().Data;
+        var allRecords = _recordRepository.Index().Data;
 
         // This empty list will be used to add the records that are in the range
-        List<WeatherRecord> ret = new List<WeatherRecord>();
-
-        foreach (var weatherRecord in allRecords)
-        {
-            if (weatherRecord.Date >= startDate && weatherRecord.Date <= endDate) ret.Add(weatherRecord);
-        }
+        var ret = allRecords.Where(weatherRecord => weatherRecord.Date >= startDate && weatherRecord.Date <= endDate).ToList();
 
         if (ret.Count == 0)
             return new Result<List<WeatherRecord>>
