@@ -22,7 +22,8 @@ public class RecordService : IRecordService
         var allRecords = _recordRepository.Index().Data;
 
         // This empty list will be used to add the records that are in the range
-        var ret = allRecords.Where(weatherRecord => weatherRecord.Date >= startDate && weatherRecord.Date <= endDate).ToList();
+        var ret = allRecords.Where(weatherRecord => weatherRecord.Date >= startDate && weatherRecord.Date <= endDate)
+            .ToList();
 
         if (ret.Count == 0)
             return new Result<List<WeatherRecord>>
@@ -46,18 +47,36 @@ public class RecordService : IRecordService
         return new Result<WeatherRecord> {IsSuccess = true, Data = ret};
     }
 
-    public Result<WeatherRecord> AddRecord(WeatherRecord record)
+    public Result<WeatherRecord> AddRecord(WeatherRecord newRecord)
     {
-        throw new NotImplementedException();
+        if (newRecord.Date > DateTime.Now)
+            return new Result<WeatherRecord>
+                {IsSuccess = false, Message = "Date cannot be in the future"};
+
+        if (newRecord.HighTemp < newRecord.LowTemp)
+            return new Result<WeatherRecord>
+                {IsSuccess = false, Message = "High temp should not be less than low temp."};
+
+        // TODO: Add validation for reasonable temps
+
+        return _recordRepository.Add(newRecord);
     }
 
     public Result<WeatherRecord> UpdateRecord(WeatherRecord record)
     {
-        throw new NotImplementedException();
+
+        return _recordRepository.Update(record);
     }
 
-    public Result<WeatherRecord> DeleteRecord(WeatherRecord record)
+    public Result<WeatherRecord> DeleteRecord(DateTime date2Delete)
     {
-        throw new NotImplementedException();
+        return _recordRepository.Delete(date2Delete);
+    }
+
+    // TODO: The validations here are very similar to what we did in AddRecord.
+    // We should refactor this code to use the same logic.
+    private bool IsValid(WeatherRecord record)
+    {
+        return true;
     }
 }

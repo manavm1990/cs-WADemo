@@ -6,5 +6,5 @@ public interface IRecordService
    Result<WeatherRecord> GetRecordByDate(DateTime date);
    Result<WeatherRecord> AddRecord(WeatherRecord record);
    Result<WeatherRecord> UpdateRecord(WeatherRecord record);
-   Result<WeatherRecord> DeleteRecord(WeatherRecord record);
+   Result<WeatherRecord> DeleteRecord(DateTime date);
 }
