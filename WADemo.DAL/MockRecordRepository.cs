@@ -64,10 +64,9 @@ public class MockRecordRepository : IRecordRepository
     {
         var result = new Result<WeatherRecord>();
 
-        foreach (var record in _records)
+        // LINQ query to find the record with the matching date
+        foreach (var record in _records.Where(record => record.Date == date))
         {
-            if (record.Date != date) continue;
-
             _records.Remove(record);
             result.IsSuccess = true;
             return result;
