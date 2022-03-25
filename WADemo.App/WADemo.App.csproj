@@ -8,6 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\WADemo.BLL\WADemo.BLL.csproj" />
+      <ProjectReference Include="..\WADemo.DAL\WADemo.DAL.csproj" />
       <ProjectReference Include="..\WADemo.UI\WADemo.UI.csproj" />
     </ItemGroup>
 

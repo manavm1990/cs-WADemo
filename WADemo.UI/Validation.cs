@@ -55,12 +55,12 @@ Press Enter to Continue");
     }
 
     // default here means it takes the absolute minimum value for a DateTime
-    internal static DateTime PromptUser4Date(string message, DateTime max = default)
+    internal static DateTime PromptUser4Date(string message, DateTime min = default)
     {
         DateTime result;
-        while (!(DateTime.TryParse(PromptUser(message), out result)) || (max != default && result > max))
+        while (!(DateTime.TryParse(PromptUser(message), out result)) || (min != default && result > min))
         {
-            PromptUser($@"Invalid Input, must be before {max}
+            PromptUser($@"Invalid Input, must be after {min}
 Press Enter to Continue");
         }
 

@@ -1,9 +1,17 @@
+using WADemo.Core.Interfaces;
+
 namespace WADemo.UI;
 
 public class Controller
 {
-    // TODO: Add a private property for the service
-    public static void Run()
+    private readonly IRecordService _recordService;
+
+    public Controller(IRecordService recordService)
+    {
+        _recordService = recordService;
+    }
+
+    public void Run()
     {
         var isRunning = true;
 
@@ -14,7 +22,7 @@ public class Controller
             switch (choice)
             {
                 case MenuChoice.ViewRecord:
-                    Console.WriteLine("Viewing record");
+                    ViewRecord();
                     break;
                 case MenuChoice.ViewRecords:
                     Console.WriteLine("Viewing records");
@@ -35,6 +43,21 @@ public class Controller
                     View.Display("Invalid choice");
                     break;
             }
+        }
+    }
+
+    private void ViewRecord()
+    {
+        var date2Lookup = View.GetWeatherDate();
+        var record = _recordService.GetRecordByDate(date2Lookup);
+
+        if (record.IsSuccess)
+        {
+            View.DisplayRecord(record.Data);
+        }
+        else
+        {
+            View.Display(record.Message);
         }
     }
 }

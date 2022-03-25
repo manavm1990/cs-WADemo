@@ -1,4 +1,6 @@
 using System.ComponentModel.Design;
+using WADemo.BLL;
+using WADemo.DAL;
 using WADemo.UI;
 
 namespace WADemo.App;
@@ -9,9 +11,11 @@ public static class Startup
     {
         View.DisplayHeader("Welcome to Weather Almanac");
 
-        // TODO: Create a instance of a Service (BLL)
-        // TODO: Inject the Service into the Controller
-        var controller = new Controller();
-        Controller.Run();
+        // TODO: Ask what type of repository to run (test/mock, live/file) and create the correct one.
+
+        var repository = new MockRecordRepository();
+        var service = new RecordService(repository);
+        var controller = new Controller(service);
+        controller.Run();
     }
 }

@@ -7,7 +7,7 @@ public class MockRecordRepository : IRecordRepository
 {
     private readonly List<WeatherRecord> _records;
 
-    private MockRecordRepository()
+    public MockRecordRepository()
     {
         // Creating a single record in our list for this mock repository
         _records = new List<WeatherRecord>

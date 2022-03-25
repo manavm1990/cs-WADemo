@@ -15,7 +15,7 @@ public class View
         Display("------------------------------------------");
     }
 
-    private static void DisplayRecord(WeatherRecord record)
+    internal static void DisplayRecord(WeatherRecord record)
     {
         Display(@$"Date: {record.Date:MMMM dd, yyyy}
 High: {record.HighTemp} 
@@ -63,7 +63,7 @@ Select mode:", 1, 2);
     }
 
     // TODO: Consider reusing this method to also get date ranges for start and end dates
-    private static DateTime GetWeatherDate(string message = "Enter Record Date:")
+    internal static DateTime GetWeatherDate(string message = "Enter Record Date:")
     {
         return Validation.PromptUser4Date(message);
     }
