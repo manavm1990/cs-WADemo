@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\WADemo.Core\WADemo.Core.csproj" />
+    </ItemGroup>
+
 </Project>
