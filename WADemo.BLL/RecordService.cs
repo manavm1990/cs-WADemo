@@ -33,7 +33,17 @@ public class RecordService : IRecordService
 
     public Result<WeatherRecord> GetRecordByDate(DateTime date)
     {
-        throw new NotImplementedException();
+        // We get the records from the Data property that was set in the repository on the Result
+        var allRecords = _recordRepository.Index().Data;
+
+        // This empty list will be used to add the records that are in the range
+        var ret = allRecords.FirstOrDefault(weatherRecord => weatherRecord.Date == date);
+
+        if (ret == null)
+            return new Result<WeatherRecord>
+                {IsSuccess = false, Message = "No record found for the date"};
+
+        return new Result<WeatherRecord> {IsSuccess = true, Data = ret};
     }
 
     public Result<WeatherRecord> AddRecord(WeatherRecord record)
