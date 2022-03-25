@@ -13,7 +13,7 @@ public static class Startup
 
         // TODO: Ask what type of repository to run (test/mock, live/file) and create the correct one.
 
-        var repository = new MockRecordRepository();
+        var repository = new CsvRecordRepository("weather.csv");
         var service = new RecordService(repository);
         var controller = new Controller(service);
         controller.Run();

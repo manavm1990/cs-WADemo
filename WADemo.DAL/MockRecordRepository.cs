@@ -17,14 +17,14 @@ public class MockRecordRepository : IRecordRepository
             // Create
             new()
 
-            // Set the fields for the WeatherRecord
-            {
-                Date = DateTime.Parse("1/1/2019"),
-                Description = "Sunny",
-                HighTemp = 75,
-                LowTemp = 55,
-                Humidity = 60,
-            }
+                // Set the fields for the WeatherRecord
+                {
+                    Date = DateTime.Parse("1/1/2019"),
+                    Description = "Sunny",
+                    HighTemp = 75,
+                    LowTemp = 55,
+                    Humidity = 60,
+                }
         };
     }
 

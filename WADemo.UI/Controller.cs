@@ -28,10 +28,10 @@ public class Controller
                     Console.WriteLine("Viewing records");
                     break;
                 case MenuChoice.AddRecord:
-                    Console.WriteLine("Adding record");
+                    AddRecord();
                     break;
                 case MenuChoice.EditRecord:
-                    Console.WriteLine("Editing record");
+                    EditRecord();
                     break;
                 case MenuChoice.DeleteRecord:
                     Console.WriteLine("Deleting record");
@@ -58,6 +58,33 @@ public class Controller
         else
         {
             View.Display(record.Message);
+        }
+    }
+
+    private void AddRecord()
+    {
+        var newRecord = View.AddWeatherRecord();
+        var result = _recordService.AddRecord(newRecord);
+    }
+
+    private void EditRecord()
+    {
+        var date2Lookup = View.GetWeatherDate();
+        var record2Update = _recordService.GetRecordByDate(date2Lookup);
+
+        if (record2Update.IsSuccess)
+        {
+            var newRecord = View.UpdateWeatherRecord(record2Update.Data);
+            var updateResult = _recordService.UpdateRecord(newRecord);
+
+            if (updateResult.IsSuccess)
+            {
+                View.Display("Record updated");
+            }
+            else
+            {
+                View.Display(updateResult.Message);
+            }
         }
     }
 }

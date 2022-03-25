@@ -68,7 +68,7 @@ Select mode:", 1, 2);
         return Validation.PromptUser4Date(message);
     }
 
-    private static WeatherRecord AddWeatherRecord()
+    internal static WeatherRecord AddWeatherRecord()
     {
         var date = Validation.PromptUser4Date("Date (MM/dd/yyyy): ");
         var high = Validation.PromptUser4Decimal("High (F): ");
@@ -80,7 +80,7 @@ Select mode:", 1, 2);
             {Date = date, HighTemp = high, LowTemp = low, Humidity = humidity, Description = description};
     }
 
-    private static WeatherRecord UpdateWeatherRecord(WeatherRecord originalRecord)
+    internal static WeatherRecord UpdateWeatherRecord(WeatherRecord originalRecord)
     {
         var updatedRecord = new WeatherRecord {Date = originalRecord.Date};
 
