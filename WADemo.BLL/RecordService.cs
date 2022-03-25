@@ -18,8 +18,22 @@ public class RecordService : IRecordService
             return new Result<List<WeatherRecord>>
                 {IsSuccess = false, Message = "Start date cannot be greater than end date"};
 
-        // TODO: If the dates are 🆗, get the records from the repository
-        throw new NotImplementedException();
+        // We get the records from the Data property that was set in the repository on the Result
+        List<WeatherRecord> allRecords = _recordRepository.Index().Data;
+
+        // This empty list will be used to add the records that are in the range
+        List<WeatherRecord> ret = new List<WeatherRecord>();
+
+        foreach (var weatherRecord in allRecords)
+        {
+            if (weatherRecord.Date >= startDate && weatherRecord.Date <= endDate) ret.Add(weatherRecord);
+        }
+
+        if (ret.Count == 0)
+            return new Result<List<WeatherRecord>>
+                {IsSuccess = false, Message = "No records found in the range"};
+
+        return new Result<List<WeatherRecord>> {IsSuccess = true, Data = ret};
     }
 
     public Result<WeatherRecord> GetRecordByDate(DateTime date)
