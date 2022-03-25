@@ -14,6 +14,11 @@ public class RecordService : IRecordService
 
     public Result<List<WeatherRecord>> GetRecordsByRange(DateTime startDate, DateTime endDate)
     {
+        if (startDate > endDate)
+            return new Result<List<WeatherRecord>>
+                {IsSuccess = false, Message = "Start date cannot be greater than end date"};
+
+        // TODO: If the dates are 🆗, get the records from the repository
         throw new NotImplementedException();
     }
 
