@@ -12,27 +12,27 @@ public class RecordService : IRecordService
         _recordRepository = recordRepository;
     }
 
-    Result<List<WeatherRecord>> GetRecordsByRange(DateTime startDate, DateTime endDate)
+    public Result<List<WeatherRecord>> GetRecordsByRange(DateTime startDate, DateTime endDate)
     {
         throw new NotImplementedException();
     }
 
-    Result<WeatherRecord> GetRecordByDate(DateTime date)
+    public Result<WeatherRecord> GetRecordByDate(DateTime date)
     {
         throw new NotImplementedException();
     }
 
-    Result<WeatherRecord> AddRecord(WeatherRecord record)
+    public Result<WeatherRecord> AddRecord(WeatherRecord record)
     {
         throw new NotImplementedException();
     }
 
-    Result<WeatherRecord> UpdateRecord(WeatherRecord record)
+    public Result<WeatherRecord> UpdateRecord(WeatherRecord record)
     {
         throw new NotImplementedException();
     }
 
-    Result<WeatherRecord> DeleteRecord(WeatherRecord record)
+    public Result<WeatherRecord> DeleteRecord(WeatherRecord record)
     {
         throw new NotImplementedException();
     }
