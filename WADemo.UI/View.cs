@@ -71,8 +71,8 @@ Select mode:", 1, 2);
   internal static WeatherRecord AddWeatherRecord()
   {
     var date = Validation.PromptUser4Date("Date (MM/dd/yyyy): ");
-    var high = Validation.PromptUser4Decimal("High (F): ");
-    var low = Validation.PromptUser4Decimal("Low (F): ");
+    var high = Validation.PromptUser4Int("High (F): ");
+    var low = Validation.PromptUser4Int("Low (F): ");
     var humidity = Validation.PromptUser4Decimal("Humidity (%): ");
     var description = Validation.PromptRequired("Description: ");
 
@@ -94,7 +94,7 @@ Select mode:", 1, 2);
     if (string.IsNullOrEmpty(newHigh)) updatedRecord.HighTemp = originalRecord.HighTemp;
     else
     {
-      if (!decimal.TryParse(newHigh, out var newHighTemp))
+      if (!int.TryParse(newHigh, out var newHighTemp))
       {
         updatedRecord.HighTemp = originalRecord.HighTemp;
       }
@@ -106,7 +106,7 @@ Select mode:", 1, 2);
     if (string.IsNullOrEmpty(newLow)) updatedRecord.LowTemp = originalRecord.LowTemp;
     else
     {
-      if (!decimal.TryParse(newLow, out var newLowTemp))
+      if (!int.TryParse(newLow, out var newLowTemp))
       {
         updatedRecord.LowTemp = originalRecord.LowTemp;
       }
