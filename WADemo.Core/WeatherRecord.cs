@@ -2,6 +2,9 @@ namespace WADemo.Core;
 
 public class WeatherRecord
 {
+  public const int MaxTemperature = 150;
+  public const int MinTemperature = -150;
+
   public WeatherRecord(string description = "")
   {
     Description = description;

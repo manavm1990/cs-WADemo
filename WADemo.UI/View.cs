@@ -1,3 +1,5 @@
+// BLL will catch invalid temp values - whatever console misses 🥅
+
 using WADemo.Core;
 
 namespace WADemo.UI;
@@ -71,9 +73,9 @@ Select mode:", 1, 2);
   internal static WeatherRecord AddWeatherRecord()
   {
     var date = Validation.PromptUser4Date("Date (MM/dd/yyyy): ");
-    var high = Validation.PromptUser4Int("High (F): ");
-    var low = Validation.PromptUser4Int("Low (F): ");
-    var humidity = Validation.PromptUser4Decimal("Humidity (%): ");
+    var high = Validation.PromptUser4Int("High (F): ", WeatherRecord.MinTemperature, WeatherRecord.MaxTemperature);
+    var low = Validation.PromptUser4Int("Low (F): ", WeatherRecord.MinTemperature, WeatherRecord.MaxTemperature);
+    var humidity = Validation.PromptUser4Decimal("Humidity (%): ", 0, 100);
     var description = Validation.PromptRequired("Description: ");
 
     return new WeatherRecord
