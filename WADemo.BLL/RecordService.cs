@@ -38,11 +38,16 @@ public class RecordService : IRecordService
     var allRecords = _recordRepository.Index().Data;
 
     // This empty list will be used to add the records that are in the range
-    var ret = allRecords.FirstOrDefault(weatherRecord => weatherRecord.Date == date);
+    if (allRecords != null)
+    {
+      var ret = allRecords.FirstOrDefault(weatherRecord => weatherRecord.Date == date);
 
-    return ret == null
-      ? new Result<WeatherRecord> {IsSuccess = false, Message = "No record found for the date"}
-      : new Result<WeatherRecord> {IsSuccess = true, Data = ret};
+      return ret == null
+        ? new Result<WeatherRecord> {IsSuccess = false, Message = "No record found for the date"}
+        : new Result<WeatherRecord> {IsSuccess = true, Data = ret};
+    }
+
+    return new Result<WeatherRecord> {IsSuccess = false, Message = "No records found!"};
   }
 
   public Result<WeatherRecord> AddRecord(WeatherRecord newRecord)

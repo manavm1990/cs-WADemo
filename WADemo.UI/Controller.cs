@@ -53,7 +53,10 @@ public class Controller
 
     if (record.IsSuccess)
     {
-      View.DisplayRecord(record.Data);
+      if (record.Data != null)
+      {
+        View.DisplayRecord(record.Data);
+      }
     }
     else
     {
@@ -74,16 +77,19 @@ public class Controller
 
     if (record2Update.IsSuccess)
     {
-      var newRecord = View.UpdateWeatherRecord(record2Update.Data);
-      var updateResult = _recordService.UpdateRecord(newRecord);
+      if (record2Update.Data != null)
+      {
+        var newRecord = View.UpdateWeatherRecord(record2Update.Data);
+        var updateResult = _recordService.UpdateRecord(newRecord);
 
-      if (updateResult.IsSuccess)
-      {
-        View.Display("Record updated");
-      }
-      else
-      {
-        View.Display(updateResult.Message);
+        if (updateResult.IsSuccess)
+        {
+          View.Display("Record updated");
+        }
+        else
+        {
+          View.Display(updateResult.Message);
+        }
       }
     }
   }
