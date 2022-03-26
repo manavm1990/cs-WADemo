@@ -65,7 +65,7 @@ Select mode:", 1, 2);
   }
 
   // TODO: Consider reusing this method to also get date ranges for start and end dates
-  internal static DateTime GetWeatherDate(string message = "Enter Record Date:")
+  internal static DateTime GetWeatherDate(string message = "Enter Record Date: ")
   {
     return Validation.PromptUser4Date(message);
   }
