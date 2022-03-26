@@ -41,7 +41,7 @@ Description: {record.Description}
   {
     DisplayHeader("Main Menu");
 
-    return Validation.PromptUser4Int(@"
+    return (int)Validation.PromptUser4Num(@"
 1. Load a Record
 2. View Records by Date Range
 3. Add Record
@@ -56,7 +56,7 @@ Enter Choice:
   private static int GetMode()
   {
     DisplayHeader("Welcome to the Weather Almanac. Please select an option:");
-    return Validation.PromptUser4Int(@"What mode would you like to run in?
+    return (int)Validation.PromptUser4Num(@"What mode would you like to run in?
 
 1. Live
 2. Test
@@ -73,9 +73,11 @@ Select mode:", 1, 2);
   internal static WeatherRecord AddWeatherRecord()
   {
     var date = Validation.PromptUser4Date("Date (MM/dd/yyyy): ");
-    var high = Validation.PromptUser4Int("High (F): ", WeatherRecord.MinTemperature, WeatherRecord.MaxTemperature);
-    var low = Validation.PromptUser4Int("Low (F): ", WeatherRecord.MinTemperature, WeatherRecord.MaxTemperature);
-    var humidity = Validation.PromptUser4Decimal("Humidity (%): ", 0, 100);
+    var high = (int)Validation.PromptUser4Num("High (F): ", WeatherRecord.MinTemperature,
+      WeatherRecord.MaxTemperature);
+    var low = (int)Validation.PromptUser4Num("Low (F): ", WeatherRecord.MinTemperature,
+      WeatherRecord.MaxTemperature);
+    var humidity = Validation.PromptUser4Num("Humidity (%): ", 0, 100);
     var description = Validation.PromptRequired("Description: ");
 
     return new WeatherRecord

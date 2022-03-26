@@ -28,24 +28,21 @@ public class Validation
     return Console.ReadLine() ?? string.Empty;
   }
 
-  // TODO: Look into using generics so we don't have to duplicate the same stuff for decimal and int
-  internal static decimal PromptUser4Decimal(string message, decimal min = decimal.MinValue,
-    decimal max = decimal.MaxValue)
+  internal static decimal PromptUser4Num(string message)
   {
     decimal result;
-    while (!decimal.TryParse(PromptUser(message), out result) || result < min || result > max)
+    while (!decimal.TryParse(PromptUser(message), out result))
     {
-      PromptUser($@"Invalid Input, must be between {min} and {max}
-Press Enter to Continue");
+      PromptUser("Invalid Input. Press Enter to Continue");
     }
 
     return result;
   }
 
-  internal static int PromptUser4Int(string message, int min = int.MinValue, int max = int.MaxValue)
+  internal static decimal PromptUser4Num(string message, decimal min, decimal max)
   {
-    int result;
-    while (!(int.TryParse(PromptUser(message), out result)) || result < min || result > max)
+    decimal result;
+    while (!decimal.TryParse(PromptUser(message), out result) || result < min || result > max)
     {
       PromptUser($@"Invalid Input, must be between {min} and {max}
 Press Enter to Continue");
