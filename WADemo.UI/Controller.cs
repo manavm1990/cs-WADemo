@@ -92,7 +92,7 @@ public class Controller
     {
       // Display error message
       var message = record2Update.Message;
-      View.Display(!string.IsNullOrEmpty(message) ? message : "Error updating record!");
+      View.Display(string.IsNullOrEmpty(message) ? "Error updating record!" : message);
     }
     else
     {
@@ -102,7 +102,9 @@ public class Controller
       if (!updatedResult.IsSuccess)
       {
         var message = updatedResult.Message;
-        View.Display(!string.IsNullOrEmpty(message) ? updatedResult.Message : "Error updating record!");
+        Console.WriteLine("🥅");
+        Console.WriteLine(message);
+        View.Display(string.IsNullOrEmpty(message) ? "Error updating record!" : message);
       }
       else
         View.Display($"Record for {record2Update.Data!.Date} updated");
