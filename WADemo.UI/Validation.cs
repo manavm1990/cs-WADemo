@@ -51,11 +51,11 @@ Press Enter to Continue");
     return result;
   }
 
-  // default here means it takes the absolute minimum value for a DateTime
-  internal static DateTime PromptUser4Date(string message, DateTime max)
+  // default here means it takes the absolute minimum value for a DateOnly
+  internal static DateOnly PromptUser4Date(string message, DateOnly max)
   {
-    DateTime result;
-    while (!(DateTime.TryParse(PromptUser(message), out result)) || (result > max))
+    DateOnly result;
+    while (!(DateOnly.TryParse(PromptUser(message), out result)) || (result > max))
     {
       PromptUser($"Invalid Input, must be before {max}.");
       Prompt2Continue();

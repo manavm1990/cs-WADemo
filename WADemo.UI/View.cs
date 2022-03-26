@@ -65,14 +65,14 @@ Select mode:", 1, 2);
   }
 
   // TODO: Consider reusing this method to also get date ranges for start and end dates
-  internal static DateTime GetWeatherDate(string message = "Enter Record Date: ")
+  internal static DateOnly GetWeatherDate(string message = "Enter Record Date: ")
   {
-    return Validation.PromptUser4Date(message, DateTime.Today);
+    return Validation.PromptUser4Date(message, DateOnly.FromDateTime(DateTime.Today));
   }
 
   internal static WeatherRecord AddWeatherRecord()
   {
-    var date = Validation.PromptUser4Date("Date (MM/dd/yyyy): ", DateTime.Today);
+    var date = Validation.PromptUser4Date("Date (MM/dd/yyyy): ", DateOnly.FromDateTime(DateTime.Today));
     var high = (int)Validation.PromptUser4Num("High (F): ", WeatherRecord.MinTemperature,
       WeatherRecord.MaxTemperature);
     var low = (int)Validation.PromptUser4Num("Low (F): ", WeatherRecord.MinTemperature,

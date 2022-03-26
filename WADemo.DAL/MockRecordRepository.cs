@@ -17,7 +17,7 @@ public class MockRecordRepository : IRecordRepository
 
         // Set the fields for the WeatherRecord
         {
-          Date = DateTime.Parse("1/1/2019"),
+          Date = DateOnly.Parse("1/1/2019"),
           Description = "Sunny",
           HighTemp = 75,
           LowTemp = 55,
@@ -58,7 +58,7 @@ public class MockRecordRepository : IRecordRepository
     return result;
   }
 
-  public Result<WeatherRecord> Delete(DateTime date)
+  public Result<WeatherRecord> Delete(DateOnly date)
   {
     var result = new Result<WeatherRecord>();
 

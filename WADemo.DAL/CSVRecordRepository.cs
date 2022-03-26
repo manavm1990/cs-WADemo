@@ -47,7 +47,7 @@ public class CsvRecordRepository : IRecordRepository
     return result;
   }
 
-  public Result<WeatherRecord> Delete(DateTime date)
+  public Result<WeatherRecord> Delete(DateOnly date)
   {
     var result = new Result<WeatherRecord>();
 
@@ -89,7 +89,7 @@ public class CsvRecordRepository : IRecordRepository
   {
     var record = new WeatherRecord();
     var values = row.Split(',');
-    record.Date = DateTime.Parse(values[0]);
+    record.Date = DateOnly.Parse(values[0]);
 
     // TODO: The description might also have commas, so we have to deal with that
     record.Description = values[1];

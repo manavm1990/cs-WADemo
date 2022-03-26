@@ -12,7 +12,7 @@ public class RecordService : IRecordService
     _recordRepository = recordRepository;
   }
 
-  public Result<List<WeatherRecord>> GetRecordsByRange(DateTime startDate, DateTime endDate)
+  public Result<List<WeatherRecord>> GetRecordsByRange(DateOnly startDate, DateOnly endDate)
   {
     if (startDate > endDate)
       return new Result<List<WeatherRecord>>
@@ -38,7 +38,7 @@ public class RecordService : IRecordService
       : new Result<List<WeatherRecord>> {IsSuccess = true, Data = ret};
   }
 
-  public Result<WeatherRecord> GetRecordByDate(DateTime date)
+  public Result<WeatherRecord> GetRecordByDate(DateOnly date)
   {
     // We get the records from the Data property that was set in the repository on the Result
     var allRecords = _recordRepository.Index().Data;
@@ -74,22 +74,14 @@ public class RecordService : IRecordService
       : new Result<WeatherRecord> {IsSuccess = false, Message = error};
   }
 
-  public Result<WeatherRecord> DeleteRecord(DateTime date2Delete)
+  public Result<WeatherRecord> DeleteRecord(DateOnly date2Delete)
   {
     return _recordRepository.Delete(date2Delete);
   }
 
   private static string ValidateRecord(WeatherRecord record)
   {
-    if (record.Date > DateTime.Now)
-      return "Date cannot be in the future";
-
-    if (record.HighTemp < record.LowTemp)
-      return "High temp should not be less than low temp.";
-
-    if (!(record.HighTemp <= 140 && record.LowTemp >= -50))
-      return "Temperature range must be between -150 to 150";
-
-    return record.Humidity is not (<= 100 and >= 0) ? "Humidity must be between 0 and 100" : String.Empty;
+    // Validation is light b/c most of it is handled by the view validation when getting inputs.
+    return record.HighTemp < record.LowTemp ? "High temp should not be less than low temp." : String.Empty;
   }
 }

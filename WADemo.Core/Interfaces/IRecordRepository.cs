@@ -7,5 +7,5 @@ public interface IRecordRepository
   Result<List<WeatherRecord>> Index();
   Result<WeatherRecord> Add(WeatherRecord record);
   Result<WeatherRecord> Update(WeatherRecord record);
-  Result<WeatherRecord> Delete(DateTime date);
+  Result<WeatherRecord> Delete(DateOnly date);
 }

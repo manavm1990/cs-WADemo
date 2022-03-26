@@ -10,7 +10,7 @@ public class WeatherRecord
     Description = description;
   }
 
-  public DateTime Date { get; set; }
+  public DateOnly Date { get; set; }
   public string Description { get; set; }
   public int HighTemp { get; set; }
   public decimal Humidity { get; set; }
