@@ -2,8 +2,8 @@
 
 internal static class Program
 {
-    private static void Main()
-    {
-        Startup.Run();
-    }
+  private static void Main()
+  {
+    Startup.Run();
+  }
 }

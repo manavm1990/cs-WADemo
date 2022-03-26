@@ -27,7 +27,9 @@ public class RecordService : IRecordService
     var ret = allRecords.Where(weatherRecord => weatherRecord.Date >= startDate && weatherRecord.Date <= endDate)
       .ToList();
 
-    return ret.Count == 0 ? new Result<List<WeatherRecord>> {IsSuccess = false, Message = "No records found in the range"} : new Result<List<WeatherRecord>> {IsSuccess = true, Data = ret};
+    return ret.Count == 0
+      ? new Result<List<WeatherRecord>> {IsSuccess = false, Message = "No records found in the range"}
+      : new Result<List<WeatherRecord>> {IsSuccess = true, Data = ret};
   }
 
   public Result<WeatherRecord> GetRecordByDate(DateTime date)
@@ -38,7 +40,9 @@ public class RecordService : IRecordService
     // This empty list will be used to add the records that are in the range
     var ret = allRecords.FirstOrDefault(weatherRecord => weatherRecord.Date == date);
 
-    return ret == null ? new Result<WeatherRecord> {IsSuccess = false, Message = "No record found for the date"} : new Result<WeatherRecord> {IsSuccess = true, Data = ret};
+    return ret == null
+      ? new Result<WeatherRecord> {IsSuccess = false, Message = "No record found for the date"}
+      : new Result<WeatherRecord> {IsSuccess = true, Data = ret};
   }
 
   public Result<WeatherRecord> AddRecord(WeatherRecord newRecord)
