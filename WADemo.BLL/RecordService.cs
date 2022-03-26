@@ -24,7 +24,13 @@ public class RecordService : IRecordService
     var allRecords = _recordRepository.Index().Data;
 
     // This empty list will be used to add the records that are in the range
-    var ret = allRecords.Where(weatherRecord => weatherRecord.Date >= startDate && weatherRecord.Date <= endDate)
+    if (allRecords == null)
+    {
+      return new Result<List<WeatherRecord>> {IsSuccess = false, Message = "No records found!"};
+    }
+
+    var ret = allRecords.Where(weatherRecord => weatherRecord.Date >= startDate && weatherRecord.Date
+        <= endDate)
       .ToList();
 
     return ret.Count == 0
@@ -38,16 +44,16 @@ public class RecordService : IRecordService
     var allRecords = _recordRepository.Index().Data;
 
     // This empty list will be used to add the records that are in the range
-    if (allRecords != null)
+    if (allRecords == null)
     {
-      var ret = allRecords.FirstOrDefault(weatherRecord => weatherRecord.Date == date);
-
-      return ret == null
-        ? new Result<WeatherRecord> {IsSuccess = false, Message = "No record found for the date"}
-        : new Result<WeatherRecord> {IsSuccess = true, Data = ret};
+      return new Result<WeatherRecord> {IsSuccess = false, Message = "No records found!"};
     }
 
-    return new Result<WeatherRecord> {IsSuccess = false, Message = "No records found!"};
+    var ret = allRecords.FirstOrDefault(weatherRecord => weatherRecord.Date == date);
+
+    return ret == null
+      ? new Result<WeatherRecord> {IsSuccess = false, Message = "No record found for the date"}
+      : new Result<WeatherRecord> {IsSuccess = true, Data = ret};
   }
 
   public Result<WeatherRecord> AddRecord(WeatherRecord newRecord)

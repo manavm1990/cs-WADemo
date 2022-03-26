@@ -68,29 +68,44 @@ public class Controller
   {
     var newRecord = View.AddWeatherRecord();
     var result = _recordService.AddRecord(newRecord);
+
+    if (!result.IsSuccess)
+    {
+      // Display error message
+      var message = result.Message;
+      View.Display(!string.IsNullOrEmpty(message) ? message : "Error updating record!");
+    }
+    else
+    {
+      View.Display($"Record for {newRecord.Date} added successfully!");
+    }
   }
 
   private void EditRecord()
   {
     var date2Lookup = View.GetWeatherDate();
+
+    // Assert that this record does have Data! 👇🏾
     var record2Update = _recordService.GetRecordByDate(date2Lookup);
 
-    if (record2Update.IsSuccess)
+    if (!record2Update.IsSuccess)
     {
-      if (record2Update.Data != null)
-      {
-        var newRecord = View.UpdateWeatherRecord(record2Update.Data);
-        var updateResult = _recordService.UpdateRecord(newRecord);
+      // Display error message
+      var message = record2Update.Message;
+      View.Display(!string.IsNullOrEmpty(message) ? message : "Error updating record!");
+    }
+    else
+    {
+      var updatedRecord = View.UpdateWeatherRecord(record2Update.Data!);
+      var updatedResult = _recordService.UpdateRecord(updatedRecord);
 
-        if (updateResult.IsSuccess)
-        {
-          View.Display("Record updated");
-        }
-        else
-        {
-          View.Display(updateResult.Message);
-        }
+      if (!updatedResult.IsSuccess)
+      {
+        var message = updatedResult.Message;
+        View.Display(!string.IsNullOrEmpty(message) ? updatedResult.Message : "Error updating record!");
       }
+      else
+        View.Display($"Record for {record2Update.Data!.Date} updated");
     }
   }
 }
