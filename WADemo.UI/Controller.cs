@@ -119,8 +119,6 @@ public class Controller
       if (!updatedResult.IsSuccess)
       {
         var message = updatedResult.Message;
-        Console.WriteLine("🥅");
-        Console.WriteLine(message);
         View.Display(string.IsNullOrEmpty(message) ? "Error updating record!" : message);
       }
       else
