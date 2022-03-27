@@ -18,14 +18,14 @@ public class CsvRecordRepository : IRecordRepository
   // TODO: Implement this method directly from the interface (I think).
   public Result<List<WeatherRecord>> Index()
   {
-    return new Result<List<WeatherRecord>> {Data = _records};
+    return new Result<List<WeatherRecord>> {IsSuccess = true, Data = _records};
   }
 
   public Result<WeatherRecord> Add(WeatherRecord record)
   {
     _records.Add(record);
     SaveAllRecords2File();
-    return new Result<WeatherRecord> {Data = record};
+    return new Result<WeatherRecord> {IsSuccess = true, Data = record};
   }
 
   public Result<WeatherRecord> Update(WeatherRecord record2Update)
