@@ -60,6 +60,17 @@ public class RecordService : IRecordService
   {
     var error = ValidateRecord(newRecord);
 
+    // Make sure we don't duplicate records
+    var existingRecords = _recordRepository.Index().Data;
+
+    if (existingRecords != null && existingRecords.Any(record => record.Date == newRecord.Date))
+    {
+      return new Result<WeatherRecord>
+      {
+        IsSuccess = false, Message = "A record already exists for the date " + newRecord.Date.ToString("yyyy-MM-dd")
+      };
+    }
+
     return string.IsNullOrEmpty(error)
       ? _recordRepository.Add(newRecord)
       : new Result<WeatherRecord> {IsSuccess = false, Message = error};
