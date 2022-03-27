@@ -1,4 +1,3 @@
-using System.ComponentModel.Design;
 using WADemo.BLL;
 using WADemo.DAL;
 using WADemo.UI;
@@ -13,7 +12,8 @@ public static class Startup
 
     // TODO: Ask what type of repository to run (test/mock, live/file) and create the correct one.
 
-    var repository = new CsvRecordRepository("weather.csv");
+    // var repository = new CsvRecordRepository("weather.csv");
+    var repository = new MockRecordRepository();
     var service = new RecordService(repository);
     var controller = new Controller(service);
     controller.Run();
