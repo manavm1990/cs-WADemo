@@ -51,14 +51,11 @@ public class CsvRecordRepository : IRecordRepository
   {
     var result = new Result<WeatherRecord>();
 
-    // TODO: Refactor to use foreach.
-    for (var i = 0; i < _records.Count; i++)
+    foreach (var record in _records.Where(record => record.Date == date))
     {
-      if (_records[i].Date != date) continue;
-
-      _records.RemoveAt(i);
+      _records.Remove(record);
       SaveAllRecords2File();
-      result.Data = new WeatherRecord {Date = date};
+      result.Data = record;
       return result;
     }
 
