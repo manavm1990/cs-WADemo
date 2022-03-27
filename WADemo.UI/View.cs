@@ -4,7 +4,7 @@ using WADemo.Core;
 
 namespace WADemo.UI;
 
-public class View
+public static class View
 {
   internal static bool Confirm(string message = "Are you sure?")
   {
