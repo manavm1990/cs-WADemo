@@ -70,8 +70,8 @@ public class CsvRecordRepository : IRecordRepository
     }
 
     using var sr = new StreamReader(_fileName);
-    string row;
-    while ((row = sr.ReadLine() ?? string.Empty) != null)
+    string? row;
+    while ((row = sr.ReadLine()) != null)
     {
       _records.Add(Deserialize(row));
     }
