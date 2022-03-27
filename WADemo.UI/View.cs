@@ -48,19 +48,16 @@ Description: {record.Description}
 4. Edit Record
 5. Delete Record
 6. Quit
-
 Enter Choice: 
 ", 1, 6);
   }
 
-  private static int GetMode()
+  public static int GetApplicationMode()
   {
     DisplayHeader("Welcome to the Weather Almanac. Please select an option:");
     return (int)Validation.PromptUser4Num(@"What mode would you like to run in?
-
 1. Live
 2. Test
-
 Select mode:", 1, 2);
   }
 
