@@ -42,13 +42,10 @@ public class MockRecordRepository : IRecordRepository
   {
     var result = new Result<WeatherRecord>();
 
-    // TODO: Consider refactoring to use a foreach loop.
-    for (var i = 0; i < _records.Count; i++)
+    // If there are any records where the date mathces the updated record's date, update them.
+    // The Any() method returns true if any of the records match the condition (for the if statement).
+    if (_records.Where(record => record.Date == updatedRecord.Date).Select(record => updatedRecord).Any())
     {
-      // If the current record's date doesn't match the date for the update, just continue the for loop for the next record
-      if (_records[i].Date != updatedRecord.Date) continue;
-
-      _records[i] = updatedRecord;
       result.IsSuccess = true;
       return result;
     }
