@@ -85,12 +85,12 @@ public class CsvRecordRepository : IRecordRepository
     var record = new WeatherRecord();
     var values = row.Split(',');
     record.Date = DateOnly.Parse(values[0]);
+    record.HighTemp = int.Parse(values[1]);
+    record.LowTemp = int.Parse(values[3]);
+    record.Humidity = int.Parse(values[2]);
 
-    // TODO: The description might also have commas, so we have to deal with that
-    record.Description = values[1];
-    record.HighTemp = int.Parse(values[2]);
-    record.Humidity = int.Parse(values[3]);
-    record.LowTemp = int.Parse(values[4]);
+    // Keep the Description at the end so that extra commas won't matter. Skip first 4 and join the rest.
+    record.Description = String.Join(", ", values.Skip(4));
 
     return record;
   }
@@ -101,7 +101,7 @@ public class CsvRecordRepository : IRecordRepository
     foreach (var record in _records)
     {
       sw.WriteLine(
-        $"{record.Date},{record.Description},{record.HighTemp},{record.Humidity},{record.LowTemp}");
+        $"{record.Date},{record.HighTemp},{record.LowTemp},{record.Humidity},{record.Description}");
     }
   }
 }
