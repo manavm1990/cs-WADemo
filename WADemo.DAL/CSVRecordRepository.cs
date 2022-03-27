@@ -38,7 +38,7 @@ public class CsvRecordRepository : IRecordRepository
 
       _records[i] = record2Update;
       SaveAllRecords2File();
-      result.Data = record2Update;
+      result.IsSuccess = true;
       return result;
     }
 
