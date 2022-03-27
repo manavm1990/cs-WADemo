@@ -5,8 +5,8 @@ namespace WADemo.DAL;
 
 public class CsvRecordRepository : IRecordRepository
 {
-  private readonly List<WeatherRecord> _records;
   private readonly string _fileName;
+  private readonly List<WeatherRecord> _records;
 
   public CsvRecordRepository(string fileName)
   {
@@ -72,13 +72,11 @@ public class CsvRecordRepository : IRecordRepository
       return;
     }
 
-    using (var sr = new StreamReader(_fileName))
+    using var sr = new StreamReader(_fileName);
+    string row = null;
+    while ((row = sr.ReadLine()) != null)
     {
-      string row = null;
-      while ((row = sr.ReadLine()) != null)
-      {
-        _records.Add(Deserialize(row));
-      }
+      _records.Add(Deserialize(row));
     }
   }
 
@@ -99,14 +97,12 @@ public class CsvRecordRepository : IRecordRepository
 
   private void SaveAllRecords2File()
   {
-    using (var sw = new StreamWriter(_fileName))
-
-      // Go over all of the WeatherRecords in _records and serialize them to a string.
-      foreach (var record in _records)
-      {
-        sw.WriteLine(
-          $"{record.Date},{record.Description},{record.HighTemp},{record.Humidity},{record.LowTemp}");
-        ;
-      }
+    using var sw = new StreamWriter(_fileName);
+    foreach (var record in _records)
+    {
+      sw.WriteLine(
+        $"{record.Date},{record.Description},{record.HighTemp},{record.Humidity},{record.LowTemp}");
+      ;
+    }
   }
 }
