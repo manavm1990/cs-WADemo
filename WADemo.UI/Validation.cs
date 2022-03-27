@@ -1,6 +1,6 @@
 namespace WADemo.UI;
 
-public class Validation
+public static class Validation
 {
   private static void Prompt2Continue()
   {
