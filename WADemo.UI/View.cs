@@ -27,7 +27,7 @@ Description: {record.Description}
 ");
   }
 
-  private static void DisplayRecords(List<WeatherRecord> records)
+  internal static void DisplayRecords(List<WeatherRecord> records)
   {
     DisplayHeader("Weather Records");
     foreach (var record in records)

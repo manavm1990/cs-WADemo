@@ -25,7 +25,7 @@ public class Controller
           ViewRecord();
           break;
         case MenuChoice.ViewRecords:
-          Console.WriteLine("Viewing records");
+          ViewRecords();
           break;
         case MenuChoice.AddRecord:
           AddRecord();
@@ -61,6 +61,23 @@ public class Controller
     else
     {
       View.Display(record.Message);
+    }
+  }
+
+  private void ViewRecords()
+  {
+    var startDate = View.GetWeatherDate("Enter start date");
+    var endDate = View.GetWeatherDate("Enter end date");
+
+    var records = _recordService.GetRecordsByRange(startDate, endDate);
+    if (records.IsSuccess)
+    {
+      // We know that there is Data if isSuccess
+      View.DisplayRecords(records.Data!);
+    }
+    else
+    {
+      View.Display(records.Message);
     }
   }
 
