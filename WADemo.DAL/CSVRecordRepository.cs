@@ -73,14 +73,14 @@ public class CsvRecordRepository : IRecordRepository
     }
 
     using var sr = new StreamReader(_fileName);
-    string row = null;
-    while ((row = sr.ReadLine()) != null)
+    string row;
+    while ((row = sr.ReadLine() ?? string.Empty) != null)
     {
       _records.Add(Deserialize(row));
     }
   }
 
-  private WeatherRecord Deserialize(string row)
+  private static WeatherRecord Deserialize(string row)
   {
     var record = new WeatherRecord();
     var values = row.Split(',');
@@ -102,7 +102,6 @@ public class CsvRecordRepository : IRecordRepository
     {
       sw.WriteLine(
         $"{record.Date},{record.Description},{record.HighTemp},{record.Humidity},{record.LowTemp}");
-      ;
     }
   }
 }
