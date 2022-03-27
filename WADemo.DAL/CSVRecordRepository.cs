@@ -52,6 +52,7 @@ public class CsvRecordRepository : IRecordRepository
     {
       _records.Remove(record);
       SaveAllRecords2File();
+      result.IsSuccess = true;
       result.Data = record;
       return result;
     }
