@@ -34,7 +34,7 @@ public class Controller
           EditRecord();
           break;
         case MenuChoice.DeleteRecord:
-          Console.WriteLine("Deleting record");
+          DeleteRecord();
           break;
         case MenuChoice.Exit:
           isRunning = false;
@@ -125,6 +125,31 @@ public class Controller
       }
       else
         View.Display($"Record for {record2Update.Data!.Date} updated");
+    }
+  }
+
+  private void DeleteRecord()
+  {
+    var date2Lookup = View.GetWeatherDate();
+    var record2Delete = _recordService.GetRecordByDate(date2Lookup);
+
+    if (record2Delete.IsSuccess)
+    {
+      View.DisplayRecord(record2Delete.Data!);
+      if (!View.Confirm("Are you sure you want to delete this record?"))
+      {
+        return;
+      }
+
+      var deleteResult = _recordService.DeleteRecord(date2Lookup);
+      View.Display(deleteResult.IsSuccess ? $"Record for {record2Delete.Data!.Date} deleted" : deleteResult.Message);
+    }
+
+    // Probably not found
+    else
+    {
+      var message = record2Delete.Message;
+      View.Display(string.IsNullOrEmpty(message) ? "Error deleting record!" : message);
     }
   }
 }

@@ -6,6 +6,14 @@ namespace WADemo.UI;
 
 public class View
 {
+  internal static bool Confirm(string message = "Are you sure?")
+  {
+    Display(message + " (y/n)");
+    var input = Console.ReadLine() ?? string.Empty;
+
+    return input.ToLower().StartsWith("y");
+  }
+
   internal static void Display(string message)
   {
     Console.WriteLine(message);
@@ -37,6 +45,15 @@ Description: {record.Description}
     }
   }
 
+  public static int GetApplicationMode()
+  {
+    DisplayHeader("Welcome to the Weather Almanac. Please select an option:");
+    return (int)Validation.PromptUser4Num(@"What mode would you like to run in?
+1. Live
+2. Test
+Select mode:", 1, 2);
+  }
+
   internal static int GetMainChoice()
   {
     DisplayHeader("Main Menu");
@@ -50,15 +67,6 @@ Description: {record.Description}
 6. Quit
 Enter Choice: 
 ", 1, 6);
-  }
-
-  public static int GetApplicationMode()
-  {
-    DisplayHeader("Welcome to the Weather Almanac. Please select an option:");
-    return (int)Validation.PromptUser4Num(@"What mode would you like to run in?
-1. Live
-2. Test
-Select mode:", 1, 2);
   }
 
   // TODO: Consider reusing this method to also get date ranges for start and end dates
