@@ -1,4 +1,6 @@
 using WADemo.BLL;
+using WADemo.Core;
+using WADemo.Core.Interfaces;
 using WADemo.DAL;
 using WADemo.UI;
 
@@ -8,12 +10,29 @@ public static class Startup
 {
   internal static void Run()
   {
+    // Update this as needed to match your project
+    // ⚠️ Can't use var with const - have to specify type explicitly
+    const string dataDir = "../data/";
+    const string dataFile = "almanac.csv";
+
+    IRecordRepository repository;
     View.DisplayHeader("Welcome to Weather Almanac");
 
-    // TODO: Ask what type of repository to run (test/mock, live/file) and create the correct one.
+    switch ((ApplicationMode)View.GetApplicationMode())
+    {
+      case ApplicationMode.LIVE:
+        Directory.CreateDirectory(dataDir);
+        repository = new CsvRecordRepository(dataDir + dataFile);
+        break;
+      case ApplicationMode.TEST:
+        repository = new MockRecordRepository();
+        break;
 
-    // var repository = new CsvRecordRepository("weather.csv");
-    var repository = new MockRecordRepository();
+      // Don't really need this as View is validating the input for 1 or 2.
+      default:
+        throw new ArgumentOutOfRangeException();
+    }
+
     var service = new RecordService(repository);
     var controller = new Controller(service);
     controller.Run();
