@@ -18,7 +18,7 @@ public class RecordServiceTests
   }
 
   [Test]
-  public void Index_WithJan2019Range_ReturnsOneRecord()
+  public void Index_WithJan2019Range_ReturnsOneRecordWithHighTempOf75()
   {
     // Act
     var result = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/01/2019"));
@@ -26,6 +26,7 @@ public class RecordServiceTests
     // Assert
     Assert.IsTrue(result.IsSuccess);
     Assert.AreEqual(1, result.Data!.Count);
+    Assert.AreEqual(75, result.Data[0].HighTemp);
   }
 
   [Test]
@@ -37,5 +38,23 @@ public class RecordServiceTests
     // Assert
     Assert.IsFalse(result.IsSuccess);
     Assert.AreEqual("No records found in the range!", result.Message);
+  }
+
+  [Test]
+  public void GetRecordByDate_WithJan12019_ReturnsRecordWithHighTempOf75()
+  {
+    var result = _recordService!.GetRecordByDate(DateOnly.Parse("01/01/2019"));
+
+    Assert.IsTrue(result.IsSuccess);
+    Assert.AreEqual(75, result.Data!.HighTemp);
+  }
+
+  [Test]
+  public void GetRecordByDate_WithNonJan2019_ReturnsNoRecordsFound4DateMessage()
+  {
+    var result = _recordService!.GetRecordByDate(DateOnly.Parse("02/02/2019"));
+
+    Assert.IsFalse(result.IsSuccess);
+    Assert.AreEqual("No record found for the date: 02/02/2019!", result.Message);
   }
 }
