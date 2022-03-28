@@ -15,7 +15,6 @@ public class CsvRecordRepository : IRecordRepository
     Init();
   }
 
-  // TODO: Implement this method directly from the interface (I think).
   public Result<List<WeatherRecord>> Index()
   {
     return new Result<List<WeatherRecord>> {IsSuccess = true, Data = _records};
