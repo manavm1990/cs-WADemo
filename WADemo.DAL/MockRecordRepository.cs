@@ -29,7 +29,7 @@ public class MockRecordRepository : IRecordRepository
   public Result<List<WeatherRecord>> Index()
   {
     // Create a new list of WeatherRecords and immediately set the Data property to our list of records
-    return new Result<List<WeatherRecord>> {Data = _records};
+    return new Result<List<WeatherRecord>> {IsSuccess = true, Data = _records};
   }
 
   public Result<WeatherRecord> Add(WeatherRecord newRecord)
