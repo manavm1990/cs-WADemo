@@ -116,4 +116,27 @@ public class RecordServiceTests
     Assert.IsFalse(result.IsSuccess);
     Assert.AreEqual("High temp should not be less than low temp.", result.Message);
   }
+
+  [Test]
+  public void UpdateRecord_ReturnsUpdatedRecordWithoutChangingRecordsCount()
+  {
+    var updatedRecord = new WeatherRecord
+    {
+      // ⚠️ Make sure date is same
+      Date = DateOnly.Parse("01/01/2019"),
+      HighTemp = 95,
+      LowTemp = 65,
+      Humidity = 70,
+      Description = "Sunny"
+    };
+
+    var updateResult = _recordService!.UpdateRecord(updatedRecord);
+    var updatedRecordByDate = _recordService!.GetRecordByDate(DateOnly.Parse("01/01/2019"));
+    var records = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/31/2019"));
+
+    Assert.IsTrue(updateResult.IsSuccess);
+    Assert.AreEqual("Record for 01/01/2019 updated successfully!", updateResult.Message);
+    Assert.AreEqual(95, updatedRecordByDate.Data!.HighTemp);
+    Assert.AreEqual(1, records.Data!.Count);
+  }
 }
