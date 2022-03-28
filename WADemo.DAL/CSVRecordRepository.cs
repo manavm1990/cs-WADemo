@@ -103,6 +103,7 @@ public class CsvRecordRepository : IRecordRepository
   private void SaveAllRecords2File()
   {
     using var sw = new StreamWriter(_fileName);
+    // TODO: Add header line.
     foreach (var record in _records)
     {
       sw.WriteLine(
