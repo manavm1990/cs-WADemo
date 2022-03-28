@@ -42,11 +42,16 @@ public class MockRecordRepository : IRecordRepository
   {
     var result = new Result<WeatherRecord>();
 
-    // If there are any records where the date matches the updated record's date, update them.
-    // The Any() method returns true if any of the records match the condition (for the if statement).
-    if (_records.Where(record => record.Date == updatedRecord.Date).Select(_ => updatedRecord).Any())
+    for (var i = 0; i < _records.Count; i++)
     {
+      if (_records[i].Date != updatedRecord.Date)
+      {
+        continue;
+      }
+
+      _records[i] = updatedRecord;
       result.IsSuccess = true;
+      result.Message = $"Record for {updatedRecord.Date} updated successfully!";
       return result;
     }
 
