@@ -51,7 +51,8 @@ Description: [{record.Description}]
     return (int)Validation.PromptUser4Num(@"What mode would you like to run in?
 1. Live
 2. Test
-Select mode:", 1, 2);
+Select mode: 
+", 1, 2);
   }
 
   internal static int GetMainChoice()
