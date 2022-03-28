@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WADemo.UI", "WADemo.UI\WADe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WADemo.App", "WADemo.App\WADemo.App.csproj", "{1BC5D18B-2E82-4AF5-9709-CBCBE3F04EC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WADemo.Tests", "WADemo.Tests\WADemo.Tests.csproj", "{7AD3113B-BC45-4704-8CAF-4956DF029FA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{1BC5D18B-2E82-4AF5-9709-CBCBE3F04EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BC5D18B-2E82-4AF5-9709-CBCBE3F04EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BC5D18B-2E82-4AF5-9709-CBCBE3F04EC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AD3113B-BC45-4704-8CAF-4956DF029FA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AD3113B-BC45-4704-8CAF-4956DF029FA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AD3113B-BC45-4704-8CAF-4956DF029FA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AD3113B-BC45-4704-8CAF-4956DF029FA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
