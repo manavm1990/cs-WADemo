@@ -31,10 +31,17 @@ public class CsvRecordRepository : IRecordRepository
   {
     var result = new Result<WeatherRecord>();
 
-    if (_records.Where(record => record.Date == record2Update.Date).Select(_ => record2Update).Any())
+    for (var i = 0; i < _records.Count; i++)
     {
+      if (_records[i].Date != record2Update.Date)
+      {
+        continue;
+      }
+
+      _records[i] = record2Update;
       SaveAllRecords2File();
       result.IsSuccess = true;
+      result.Data = record2Update;
       return result;
     }
 
@@ -69,6 +76,7 @@ public class CsvRecordRepository : IRecordRepository
       return;
     }
 
+    // TODO: What about the header line? Just add an extra ReadLine for the header to skip it.
     using var sr = new StreamReader(_fileName);
     string? row;
     while ((row = sr.ReadLine()) != null)
@@ -83,8 +91,8 @@ public class CsvRecordRepository : IRecordRepository
     var values = row.Split(',');
     record.Date = DateOnly.Parse(values[0]);
     record.HighTemp = int.Parse(values[1]);
-    record.LowTemp = int.Parse(values[3]);
-    record.Humidity = int.Parse(values[2]);
+    record.LowTemp = int.Parse(values[2]);
+    record.Humidity = int.Parse(values[3]);
 
     // Keep the Description at the end so that extra commas won't matter. Skip first 4 and join the rest.
     record.Description = String.Join(", ", values.Skip(4));

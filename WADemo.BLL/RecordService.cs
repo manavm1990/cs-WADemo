@@ -14,6 +14,7 @@ public class RecordService : IRecordService
 
   public Result<List<WeatherRecord>> GetRecordsByRange(DateOnly startDate, DateOnly endDate)
   {
+    // TODO: Consider moving this to Validation from the Console
     if (startDate > endDate)
       return new Result<List<WeatherRecord>>
       {
@@ -21,6 +22,7 @@ public class RecordService : IRecordService
       };
 
     // We get the records from the Data property that was set in the repository on the Result
+    // TODO: Consider allowing the repo to do the filtering by the date ranges.
     var allRecords = _recordRepository.Index().Data;
 
     // This empty list will be used to add the records that are in the range
