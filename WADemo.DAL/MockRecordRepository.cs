@@ -44,7 +44,7 @@ public class MockRecordRepository : IRecordRepository
 
     // If there are any records where the date matches the updated record's date, update them.
     // The Any() method returns true if any of the records match the condition (for the if statement).
-    if (_records.Where(record => record.Date == updatedRecord.Date).Select(record => updatedRecord).Any())
+    if (_records.Where(record => record.Date == updatedRecord.Date).Select(_ => updatedRecord).Any())
     {
       result.IsSuccess = true;
       return result;

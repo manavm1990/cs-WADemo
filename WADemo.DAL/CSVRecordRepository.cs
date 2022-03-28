@@ -32,7 +32,7 @@ public class CsvRecordRepository : IRecordRepository
   {
     var result = new Result<WeatherRecord>();
 
-    if (_records.Where(record => record.Date == record2Update.Date).Select(record => record2Update).Any())
+    if (_records.Where(record => record.Date == record2Update.Date).Select(_ => record2Update).Any())
     {
       SaveAllRecords2File();
       result.IsSuccess = true;
