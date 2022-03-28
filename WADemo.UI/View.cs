@@ -8,7 +8,7 @@ public static class View
 {
   internal static bool Confirm(string message = "Are you sure?")
   {
-    Display(message + " (y/n)");
+    Console.Write(message + " (y/n)");
     var input = Console.ReadLine() ?? string.Empty;
 
     return input.ToLower().StartsWith("y");
@@ -28,10 +28,10 @@ public static class View
   internal static void DisplayRecord(WeatherRecord record)
   {
     Display(@$"Date: {record.Date:MMMM dd, yyyy}
-High: {record.HighTemp} 
-Low: {record.LowTemp}
-Humidity: {record.Humidity}%
-Description: {record.Description}
+High: [{record.HighTemp}] 
+Low: [{record.LowTemp}]
+Humidity: [{record.Humidity}%]
+Description: [{record.Description}]
 ");
   }
 

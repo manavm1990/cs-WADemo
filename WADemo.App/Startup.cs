@@ -20,11 +20,11 @@ public static class Startup
 
     switch ((ApplicationMode)View.GetApplicationMode())
     {
-      case ApplicationMode.LIVE:
+      case ApplicationMode.Live:
         Directory.CreateDirectory(dataDir);
         repository = new CsvRecordRepository(dataDir + dataFile);
         break;
-      case ApplicationMode.TEST:
+      case ApplicationMode.Test:
         repository = new MockRecordRepository();
         break;
 
