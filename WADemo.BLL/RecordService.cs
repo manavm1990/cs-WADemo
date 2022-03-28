@@ -34,7 +34,7 @@ public class RecordService : IRecordService
       .ToList();
 
     return ret.Count == 0
-      ? new Result<List<WeatherRecord>> {IsSuccess = false, Message = "No records found in the range"}
+      ? new Result<List<WeatherRecord>> {IsSuccess = false, Message = "No records found in the range!"}
       : new Result<List<WeatherRecord>> {IsSuccess = true, Data = ret};
   }
 
