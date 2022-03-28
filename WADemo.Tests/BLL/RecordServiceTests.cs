@@ -8,22 +8,20 @@ namespace WADemo.Tests.BLL;
 
 public class RecordServiceTests
 {
-  private IRecordRepository? _recordRepository;
+  private IRecordService? _recordService;
 
   [SetUp]
   public void Setup()
   {
-    _recordRepository = new MockRecordRepository();
+    // Arrange
+    _recordService = new RecordService(new MockRecordRepository());
   }
 
   [Test]
   public void Index_WithJan2019Range_ReturnsOneRecord()
   {
-    // Arrange
-    var recordService = new RecordService(_recordRepository!);
-
     // Act
-    var result = recordService.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/01/2019"));
+    var result = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/01/2019"));
 
     // Assert
     Assert.IsTrue(result.IsSuccess);
@@ -33,11 +31,8 @@ public class RecordServiceTests
   [Test]
   public void Index_WithNonJan2019Range_ReturnsNoRecordsFoundInRangeMessage()
   {
-    // Arrange
-    var recordService = new RecordService(_recordRepository!);
-
     // Act
-    var result = recordService.GetRecordsByRange(DateOnly.Parse("02/02/2019"), DateOnly.Parse("02/02/2019"));
+    var result = _recordService!.GetRecordsByRange(DateOnly.Parse("02/02/2019"), DateOnly.Parse("02/02/2019"));
 
     // Assert
     Assert.IsFalse(result.IsSuccess);
