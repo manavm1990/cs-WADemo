@@ -67,7 +67,8 @@ public class RecordService : IRecordService
     {
       return new Result<WeatherRecord>
       {
-        IsSuccess = false, Message = "A record already exists for the date " + newRecord.Date.ToString("yyyy-MM-dd")
+        IsSuccess = false,
+        Message = "A record already exists for the date: " + newRecord.Date.ToString("MM/dd/yyyy") + "!"
       };
     }
 

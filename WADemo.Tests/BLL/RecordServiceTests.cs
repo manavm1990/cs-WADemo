@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using WADemo.BLL;
+using WADemo.Core;
 using WADemo.Core.Interfaces;
 using WADemo.DAL;
 
@@ -56,5 +57,63 @@ public class RecordServiceTests
 
     Assert.IsFalse(result.IsSuccess);
     Assert.AreEqual("No record found for the date: 02/02/2019!", result.Message);
+  }
+
+  [Test]
+  public void AddRecord_WithValidRecord_ReturnsSuccessMessageAfterAddingRecordWithHighTempOf85()
+  {
+    var record = new WeatherRecord
+    {
+      // ⚠️ Make sure it's not a duplicate date
+      Date = DateOnly.Parse("01/02/2019"),
+
+      // ⚠️ Keep this distinctly different from the seed 🌱 data in MockRecordRepository.
+      HighTemp = 85,
+      LowTemp = 65,
+      Humidity = 70,
+      Description = "Sunny"
+    };
+
+    var result = _recordService!.AddRecord(record);
+    var records = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/31/2019"));
+
+    Assert.IsTrue(result.IsSuccess);
+    Assert.AreEqual("Record added successfully!", result.Message);
+    Assert.AreEqual(2, records.Data!.Count);
+    Assert.AreEqual(85, records.Data[1].HighTemp);
+  }
+
+  [Test]
+  public void AddRecord_WithDuplicateDate_ReturnsDuplicateDateMessage()
+  {
+    var record = new WeatherRecord
+    {
+      // ⚠️ Make sure it's a duplicate date
+      Date = DateOnly.Parse("01/01/2019")
+    };
+
+    var result = _recordService!.AddRecord(record);
+
+    Assert.IsFalse(result.IsSuccess);
+    Assert.AreEqual("A record already exists for the date: 01/01/2019!", result.Message);
+  }
+
+  [Test]
+  public void AddRecord_WithLowTempHigherThanHighTemp_ReturnsLowTempHigherThanHighTempMessage()
+  {
+    var record = new WeatherRecord
+    {
+      // ⚠️ Make sure it's not a duplicate date
+      Date = DateOnly.Parse("01/02/2019"),
+      HighTemp = 85,
+      LowTemp = 95,
+      Humidity = 70,
+      Description = "Sunny"
+    };
+
+    var result = _recordService!.AddRecord(record);
+
+    Assert.IsFalse(result.IsSuccess);
+    Assert.AreEqual("High temp should not be less than low temp.", result.Message);
   }
 }

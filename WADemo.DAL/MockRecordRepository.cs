@@ -35,7 +35,7 @@ public class MockRecordRepository : IRecordRepository
   public Result<WeatherRecord> Add(WeatherRecord newRecord)
   {
     _records.Add(newRecord);
-    return new Result<WeatherRecord> {IsSuccess = true, Message = "Record added successfully"};
+    return new Result<WeatherRecord> {IsSuccess = true, Message = "Record added successfully!"};
   }
 
   public Result<WeatherRecord> Update(WeatherRecord updatedRecord)
