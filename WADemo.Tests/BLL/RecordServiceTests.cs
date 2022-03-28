@@ -17,7 +17,7 @@ public class RecordServiceTests
   }
 
   [Test]
-  public void Index_ReturnsSuccessWithOneRecord4Jan2019()
+  public void Index_WithJan2019Range_ReturnsOneRecord()
   {
     // Arrange
     var recordService = new RecordService(_recordRepository!);
@@ -31,7 +31,7 @@ public class RecordServiceTests
   }
 
   [Test]
-  public void Index_ReturnsNoRecordsMessage4NonJan2019()
+  public void Index_WithNonJan2019Range_ReturnsNoRecordsFoundInRangeMessage()
   {
     // Arrange
     var recordService = new RecordService(_recordRepository!);
