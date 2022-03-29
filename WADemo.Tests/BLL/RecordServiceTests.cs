@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using WADemo.BLL;
 using WADemo.Core;
@@ -56,7 +56,7 @@ public class RecordServiceTests
     var result = _recordService!.GetRecordByDate(DateOnly.Parse("02/02/2019"));
 
     Assert.IsFalse(result.IsSuccess);
-    Assert.AreEqual("No record found for the date: 2/2/2019!", result.Message);
+    Assert.AreEqual("No record found for the date: 02/02/2019!", result.Message);
   }
 
   [Test]
@@ -135,7 +135,7 @@ public class RecordServiceTests
     var records = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/31/2019"));
 
     Assert.IsTrue(updateResult.IsSuccess);
-    Assert.AreEqual("Record for 1/1/2019 updated successfully!", updateResult.Message);
+    Assert.AreEqual("Record for 01/01/2019 updated successfully!", updateResult.Message);
     Assert.AreEqual(95, updatedRecordByDate.Data!.HighTemp);
     Assert.AreEqual(1, records.Data!.Count);
   }
