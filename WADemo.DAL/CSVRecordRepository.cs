@@ -76,9 +76,12 @@ public class CsvRecordRepository : IRecordRepository
       return;
     }
 
-    // TODO: What about the header line? Just add an extra ReadLine for the header to skip it.
     using var sr = new StreamReader(_fileName);
     string? row;
+
+    // Skip the header line
+    sr.ReadLine();
+
     while ((row = sr.ReadLine()) != null)
     {
       _records.Add(Deserialize(row));
@@ -103,7 +106,10 @@ public class CsvRecordRepository : IRecordRepository
   private void SaveAllRecords2File()
   {
     using var sw = new StreamWriter(_fileName);
-    // TODO: Add header line.
+
+    // Write the header line
+    sw.WriteLine("Date,HighTemp,LowTemp,Humidity,Description");
+
     foreach (var record in _records)
     {
       sw.WriteLine(
