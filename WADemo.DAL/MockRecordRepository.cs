@@ -72,7 +72,8 @@ public class MockRecordRepository : IRecordRepository
       return result;
     }
 
-    result.Message = "Record not found";
+    result.Message = $"Record not found for date: {date.ToString("MM/dd/yyyy")}!";
+    ;
     result.IsSuccess = false;
     return result;
   }

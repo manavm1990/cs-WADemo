@@ -139,4 +139,26 @@ public class RecordServiceTests
     Assert.AreEqual(95, updatedRecordByDate.Data!.HighTemp);
     Assert.AreEqual(1, records.Data!.Count);
   }
+
+  [Test]
+  public void DeleteRecord_ReturnsSuccess()
+  {
+    var deleteResult = _recordService!.DeleteRecord(DateOnly.Parse("01/01/2019"));
+
+    var records = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/31/2019"));
+    var recordByDate = _recordService!.GetRecordByDate(DateOnly.Parse("01/01/2019"));
+
+    Assert.IsTrue(deleteResult.IsSuccess);
+    Assert.IsFalse(recordByDate.IsSuccess); // Means no records found
+    Assert.IsNull(recordByDate.Data);
+  }
+
+  [Test]
+  public void DeleteRecord_WithNonExistentRecord_ReturnsNoRecordFoundMessage()
+  {
+    var deleteResult = _recordService!.DeleteRecord(DateOnly.Parse("11/01/2019"));
+
+    Assert.IsFalse(deleteResult.IsSuccess);
+    Assert.AreEqual("Record not found for date: 11/01/2019!", deleteResult.Message);
+  }
 }
