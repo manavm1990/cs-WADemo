@@ -1,4 +1,4 @@
-namespace WADemo.Core;
+namespace WADemo.Core.Models;
 
 // The DTO/Model wraps any type of data, hence the <T>
 public class Result<T>

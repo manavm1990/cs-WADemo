@@ -1,8 +1,8 @@
 ﻿using System;
 using NUnit.Framework;
 using WADemo.BLL;
-using WADemo.Core;
 using WADemo.Core.Interfaces;
+using WADemo.Core.Models;
 using WADemo.DAL;
 
 namespace WADemo.Tests.BLL;

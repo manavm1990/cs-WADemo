@@ -1,3 +1,5 @@
+using WADemo.Core.Models;
+
 namespace WADemo.Core.Interfaces;
 
 public interface IRecordService

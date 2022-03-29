@@ -1,5 +1,5 @@
-using WADemo.Core;
 using WADemo.Core.Interfaces;
+using WADemo.Core.Models;
 
 namespace WADemo.DAL;
 

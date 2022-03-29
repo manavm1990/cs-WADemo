@@ -1,6 +1,6 @@
 // BLL will catch invalid temp values - whatever console misses 🥅
 
-using WADemo.Core;
+using WADemo.Core.Models;
 
 namespace WADemo.UI;
 

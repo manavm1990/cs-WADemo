@@ -1,4 +1,4 @@
-namespace WADemo.Core;
+namespace WADemo.Core.Models;
 
 public class WeatherRecord
 {

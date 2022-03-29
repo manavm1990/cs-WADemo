@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
-using WADemo.Core;
+using WADemo.Core.Models;
 using WADemo.DAL;
 
 namespace WADemo.Tests.DAL;
