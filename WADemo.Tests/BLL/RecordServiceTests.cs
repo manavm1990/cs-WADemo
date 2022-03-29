@@ -22,7 +22,7 @@ public class RecordServiceTests
   public void Index_WithJan2019Range_ReturnsOneRecordWithHighTempOf75()
   {
     // Act
-    var result = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/01/2019"));
+    var result = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/31/2019"));
 
     // Assert
     Assert.IsTrue(result.IsSuccess);
@@ -34,7 +34,7 @@ public class RecordServiceTests
   public void Index_WithNonJan2019Range_ReturnsNoRecordsFoundInRangeMessage()
   {
     // Act
-    var result = _recordService!.GetRecordsByRange(DateOnly.Parse("02/02/2019"), DateOnly.Parse("02/02/2019"));
+    var result = _recordService!.GetRecordsByRange(DateOnly.Parse("02/01/2019"), DateOnly.Parse("02/28/2019"));
 
     // Assert
     Assert.IsFalse(result.IsSuccess);
@@ -132,10 +132,13 @@ public class RecordServiceTests
 
     var updateResult = _recordService!.UpdateRecord(updatedRecord);
     var updatedRecordByDate = _recordService!.GetRecordByDate(DateOnly.Parse("01/01/2019"));
-    var records = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/31/2019"));
+    var records = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"),
+      DateOnly.Parse("01/31/2019"));
 
     Assert.IsTrue(updateResult.IsSuccess);
     Assert.AreEqual("Record for 01/01/2019 updated successfully!", updateResult.Message);
+
+    // TODO: Add more asserts for additional fields
     Assert.AreEqual(95, updatedRecordByDate.Data!.HighTemp);
     Assert.AreEqual(1, records.Data!.Count);
   }
@@ -145,7 +148,6 @@ public class RecordServiceTests
   {
     var deleteResult = _recordService!.DeleteRecord(DateOnly.Parse("01/01/2019"));
 
-    var records = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/31/2019"));
     var recordByDate = _recordService!.GetRecordByDate(DateOnly.Parse("01/01/2019"));
 
     Assert.IsTrue(deleteResult.IsSuccess);
