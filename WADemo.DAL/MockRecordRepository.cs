@@ -51,7 +51,7 @@ public class MockRecordRepository : IRecordRepository
 
       _records[i] = updatedRecord;
       result.IsSuccess = true;
-      result.Message = $"Record for {updatedRecord.Date} updated successfully!";
+      result.Message = $"Record for {updatedRecord.Date.ToString("MM/dd/yyyy")} updated successfully!";
       return result;
     }
 
