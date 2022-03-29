@@ -10,6 +10,20 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/WADemo.Tests/DAL/test_data/test.data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="/WADemo.Tests/DAL/test_data/test.records.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value=";" />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/WADemo.Tests/DAL/test_data/test.seed.csv">
           <value>
             <Attribute>
