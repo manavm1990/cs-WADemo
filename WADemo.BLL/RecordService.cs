@@ -54,7 +54,7 @@ public class RecordService : IRecordService
     var ret = allRecords.FirstOrDefault(weatherRecord => weatherRecord.Date == date);
 
     return ret == null
-      ? new Result<WeatherRecord> {IsSuccess = false, Message = $"No record found for the date: {date}!"}
+      ? new Result<WeatherRecord> {IsSuccess = false, Message = $"No record found for the date: {date.ToString("MM/dd/yyyy")}!"}
       : new Result<WeatherRecord> {IsSuccess = true, Data = ret};
   }
 
