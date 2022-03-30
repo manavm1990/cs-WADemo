@@ -1,6 +1,7 @@
 using WADemo.BLL;
 using WADemo.Core;
 using WADemo.Core.Interfaces;
+using WADemo.Core.Models;
 using WADemo.DAL;
 using WADemo.UI;
 
@@ -14,15 +15,33 @@ public static class Startup
     // ⚠️ Can't use var with const - have to specify type explicitly
     const string dataDir = "../data/";
     const string dataFile = "almanac.csv";
+    const string logFile = "log.error.csv";
 
+    ILogger logger;
     IRecordRepository repository;
     View.DisplayHeader("Welcome to Weather Almanac");
+
+    switch ((LoggingMode)View.GetLoggingMode())
+    {
+      case LoggingMode.None:
+        logger = new NullLogger();
+        break;
+      case LoggingMode.Console:
+        logger = new ConsoleLogger();
+        break;
+      case LoggingMode.File:
+        logger = new CSVLogger(logFile);
+        break;
+      default:
+        throw new ArgumentOutOfRangeException();
+    }
 
     switch ((ApplicationMode)View.GetApplicationMode())
     {
       case ApplicationMode.Live:
+        // TODO: Consider using factories to separate concerns and not have this Startup do all this stuff
         Directory.CreateDirectory(dataDir);
-        repository = new CsvRecordRepository(dataDir + dataFile);
+        repository = new CsvRecordRepository(dataDir + dataFile, logger);
         break;
       case ApplicationMode.Test:
         repository = new MockRecordRepository();

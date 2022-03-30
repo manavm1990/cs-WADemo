@@ -12,16 +12,18 @@ public class RecordRepoTests
   [SetUp]
   public void Setup()
   {
+    if (File.Exists(LogFile)) File.Delete(LogFile);
+
     // Delete any Test Data File
     if (File.Exists(TestDataFile)) File.Delete(TestDataFile);
 
     // Copy the seed contents to a newly created Test Data File
     File.Copy(SeedFile, TestDataFile);
 
-    _repo = new CsvRecordRepository(TestDataFile);
+    _repo = new CsvRecordRepository(TestDataFile, new CSVLogger(LogFile));
   }
-
   // TODO: Look for a way to avoid all the silly ../ and get net6 to read the dang file!
+  private const string LogFile = "../../../DAL/log.error.csv";
   private const string SeedFile = "../../../DAL/test_data/test.seed.csv";
   private const string TestDataFile = "../../../DAL/test_data/test.data.csv";
 

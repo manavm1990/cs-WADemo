@@ -6,11 +6,14 @@ namespace WADemo.DAL;
 public class CsvRecordRepository : IRecordRepository
 {
   private readonly string _fileName;
+  private readonly ILogger _logger;
   private readonly List<WeatherRecord> _records;
 
-  public CsvRecordRepository(string fileName)
+  public CsvRecordRepository(string fileName, ILogger logger)
   {
     _fileName = fileName;
+    _logger = logger;
+
     _records = new List<WeatherRecord>();
     Init();
   }
@@ -70,21 +73,28 @@ public class CsvRecordRepository : IRecordRepository
 
   private void Init()
   {
-    if (!File.Exists(_fileName))
+    try
     {
-      File.Create(_fileName).Close();
-      return;
+      if (!File.Exists(_fileName))
+      {
+        File.Create(_fileName).Close();
+        return;
+      }
+
+      using var sr = new StreamReader(_fileName);
+      string? row;
+
+      // Skip the header line
+      sr.ReadLine();
+
+      while ((row = sr.ReadLine()) != null)
+      {
+        _records.Add(Deserialize(row));
+      }
     }
-
-    using var sr = new StreamReader(_fileName);
-    string? row;
-
-    // Skip the header line
-    sr.ReadLine();
-
-    while ((row = sr.ReadLine()) != null)
+    catch (Exception ex)
     {
-      _records.Add(Deserialize(row));
+      _logger.Log($"🥅 ${ex.Message}");
     }
   }
 
@@ -105,15 +115,22 @@ public class CsvRecordRepository : IRecordRepository
 
   private void SaveAllRecords2File()
   {
-    using var sw = new StreamWriter(_fileName);
-
-    // Write the header line
-    sw.WriteLine("Date,HighTemp,LowTemp,Humidity,Description");
-
-    foreach (var record in _records)
+    try
     {
-      sw.WriteLine(
-        $"{record.Date},{record.HighTemp},{record.LowTemp},{record.Humidity},{record.Description}");
+      using var sw = new StreamWriter(_fileName);
+
+      // Write the header line
+      sw.WriteLine("Date,HighTemp,LowTemp,Humidity,Description");
+
+      foreach (var record in _records)
+      {
+        sw.WriteLine(
+          $"{record.Date},{record.HighTemp},{record.LowTemp},{record.Humidity},{record.Description}");
+      }
+    }
+    catch (Exception ex)
+    {
+      _logger.Log($"🥅 ${ex.Message}");
     }
   }
 }

@@ -55,6 +55,15 @@ Select mode:
 ", 1, 2);
   }
 
+  public static int GetLoggingMode()
+  {
+    return (int)Validation.PromptUser4Num(@"What logging mode do you want to use?
+1. No logging
+2. Log to console
+3. Log to file
+", 1, 3);
+  }
+
   internal static int GetMainChoice()
   {
     DisplayHeader("Main Menu");
