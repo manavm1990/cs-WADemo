@@ -2,11 +2,11 @@
 
 public class StatReport
 {
-  public decimal AvgHighTemp { get; set; }
+  public double AvgHighTemp { get; set; }
   public decimal MaxHighTemp { get; set; }
   public decimal MinHighTemp { get; set; }
 
-  public decimal AvgLowTemp { get; set; }
+  public double AvgLowTemp { get; set; }
   public decimal MaxLowTemp { get; set; }
   public decimal MinLowTemp { get; set; }
 

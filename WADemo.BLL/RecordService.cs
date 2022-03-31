@@ -96,6 +96,31 @@ public class RecordService : IRecordService
     return _recordRepository.Delete(date2Delete);
   }
 
+  public Result<StatReport> GetStatReport(DateOnly startDate, DateOnly endDate)
+  {
+    var allRecordsInRange = GetRecordsByRange(startDate, endDate).Data;
+
+    if (allRecordsInRange == null)
+    {
+      return new Result<StatReport> {IsSuccess = false, Message = "No records found!"};
+    }
+
+    var stats = new StatReport
+    {
+      AvgHighTemp = allRecordsInRange.Average(record => record.HighTemp),
+      MaxHighTemp = allRecordsInRange.Max(record => record.HighTemp),
+      MinHighTemp = allRecordsInRange.Min(record => record.HighTemp),
+      AvgLowTemp = allRecordsInRange.Average(record => record.LowTemp),
+      MaxLowTemp = allRecordsInRange.Max(record => record.LowTemp),
+      MinLowTemp = allRecordsInRange.Min(record => record.LowTemp),
+      AvgHumidity = allRecordsInRange.Average(record => record.Humidity),
+      MaxHumidity = allRecordsInRange.Max(record => record.Humidity),
+      MinHumidity = allRecordsInRange.Min(record => record.Humidity)
+    };
+
+    return new Result<StatReport> {IsSuccess = true, Data = stats};
+  }
+
   private static string ValidateRecord(WeatherRecord record)
   {
     // Validation is light b/c most of it is handled by the view validation when getting inputs.

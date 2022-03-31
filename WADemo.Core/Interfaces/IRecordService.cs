@@ -9,4 +9,5 @@ public interface IRecordService
   Result<WeatherRecord> AddRecord(WeatherRecord record);
   Result<WeatherRecord> UpdateRecord(WeatherRecord record);
   Result<WeatherRecord> DeleteRecord(DateOnly date);
+  Result<StatReport> GetStatReport(DateOnly startDate, DateOnly endDate);
 }
