@@ -39,9 +39,6 @@ public class Controller
         case MenuChoice.Stats:
           DisplayStats();
           break;
-        case MenuChoice.Data:
-          DisplayData();
-          break;
         case MenuChoice.Search:
           Search();
           break;
@@ -79,10 +76,18 @@ public class Controller
     var endDate = View.GetWeatherDate("Enter end date");
 
     var records = _recordService.GetRecordsByRange(startDate, endDate);
+
     if (records.IsSuccess)
     {
-      // We know that there is Data if isSuccess
-      View.DisplayRecords(records.Data!);
+      // Iterate over each grouped record in dictionary...key is date, value is list of records
+      foreach (var (key, weatherRecords) in records.Data!)
+      {
+        View.DisplayHeader($"{key.ToShortDateString()}");
+        foreach (var value in weatherRecords)
+        {
+          View.DisplayRecord(value);
+        }
+      }
     }
     else
     {
@@ -158,11 +163,6 @@ public class Controller
       var message = record2Delete.Message;
       View.Display(string.IsNullOrEmpty(message) ? "Error deleting record!" : message);
     }
-  }
-
-  private void DisplayData()
-  {
-    throw new NotImplementedException();
   }
 
   private void DisplayStats()
