@@ -45,6 +45,15 @@ Description: [{record.Description}]
     }
   }
 
+  internal static void DisplayStatReport(StatReport report)
+  {
+    Display($@"
+High (min|max|avg): {report.MinHighTemp} | {report.MaxHighTemp} | {report.AvgHighTemp:N0}
+Low (min|max|avg): {report.MinLowTemp} | {report.MaxLowTemp} | {report.AvgLowTemp:N0}
+Humidity (min|max|avg): {report.MinHumidity} | {report.MaxHumidity} | {report.AvgHumidity:N0}
+");
+  }
+
   public static int GetApplicationMode()
   {
     DisplayHeader("Welcome to the Weather Almanac. Please select an option:");
@@ -74,7 +83,7 @@ Select mode:
 3. Add Record
 4. Edit Record
 5. Delete Record
-6.  Stats by Date Range
+6. Stats by Date Range
 7. Data by Month/Year
 8. Description Search
 9. Quit

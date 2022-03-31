@@ -162,15 +162,23 @@ public class Controller
 
   private void DisplayData()
   {
-    var startDate = View.GetWeatherDate("Start Date:");
-    var endDate = View.GetWeatherDate("End Date:");
-
-    // TODO: Get the records from the service and send them to the view
+    throw new NotImplementedException();
   }
 
   private void DisplayStats()
   {
-    throw new NotImplementedException();
+    var startDate = View.GetWeatherDate("Start Date:");
+    var endDate = View.GetWeatherDate("End Date:");
+
+    var statReport = _recordService.GetStatReport(startDate, endDate);
+    if (statReport.IsSuccess)
+    {
+      View.DisplayStatReport(statReport.Data!);
+    }
+    else
+    {
+      View.Display(statReport.Message);
+    }
   }
 
   private void Search()
