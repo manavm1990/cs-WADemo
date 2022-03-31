@@ -162,7 +162,10 @@ public class Controller
 
   private void DisplayData()
   {
-    throw new NotImplementedException();
+    var startDate = View.GetWeatherDate("Start Date:");
+    var endDate = View.GetWeatherDate("End Date:");
+
+    // TODO: Get the records from the service and send them to the view
   }
 
   private void DisplayStats()
