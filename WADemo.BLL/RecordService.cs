@@ -12,32 +12,43 @@ public class RecordService : IRecordService
     _recordRepository = recordRepository;
   }
 
-  public Result<List<WeatherRecord>> GetRecordsByRange(DateOnly startDate, DateOnly endDate)
+  public Result<Dictionary<DateOnly, List<WeatherRecord>>> GetRecordsByRange(DateOnly startDate, DateOnly endDate)
   {
     // TODO: Consider moving this to Validation from the Console
     if (startDate > endDate)
-      return new Result<List<WeatherRecord>>
+      return new Result<Dictionary<DateOnly, List<WeatherRecord>>>
       {
         IsSuccess = false, Message = "Start date cannot be greater than end date"
       };
 
     // We get the records from the Data property that was set in the repository on the Result
-    // TODO: Consider allowing the repo to do the filtering by the date ranges.
+    // TODO: Consider allowing the repo to do the filtering by the date ranges (if data size gets large enough).
     var allRecords = _recordRepository.Index().Data;
 
     // This empty list will be used to add the records that are in the range
     if (allRecords == null)
     {
-      return new Result<List<WeatherRecord>> {IsSuccess = false, Message = "No records found!"};
+      return new Result<Dictionary<DateOnly, List<WeatherRecord>>> {IsSuccess = false, Message = "No records found!"};
     }
 
-    var ret = allRecords.Where(weatherRecord => weatherRecord.Date >= startDate && weatherRecord.Date
-        <= endDate)
-      .ToList();
+    var ret = allRecords.Where(weatherRecord => weatherRecord.Date >= startDate && weatherRecord.Date <= endDate)
+
+      // Group the records by the date
+      .GroupBy(record => new DateOnly(record.Date.Year, record.Date.Month, record.Date.Day))
+
+      // Order the records by the date, by month and then by year
+      .OrderBy(record => record.Key.Month).ThenBy(record => record.Key.Year)
+
+      // Convert the records to a dictionary using the Key (DateOnly) and assigning a value for the entire group for
+      // that DateOnly
+      .ToDictionary(record => record.Key, g => g.ToList());
 
     return ret.Count == 0
-      ? new Result<List<WeatherRecord>> {IsSuccess = false, Message = "No records found in the range!"}
-      : new Result<List<WeatherRecord>> {IsSuccess = true, Data = ret};
+      ? new Result<Dictionary<DateOnly, List<WeatherRecord>>>
+      {
+        IsSuccess = false, Message = "No records found in the range!"
+      }
+      : new Result<Dictionary<DateOnly, List<WeatherRecord>>> {IsSuccess = true, Data = ret};
   }
 
   public Result<WeatherRecord> GetRecordByDate(DateOnly date)
@@ -105,17 +116,21 @@ public class RecordService : IRecordService
       return new Result<StatReport> {IsSuccess = false, Message = "No records found!"};
     }
 
+    // We just need the values from the dictionary
+    var records = allRecordsInRange.Aggregate(new List<WeatherRecord>(),
+      (current, record) => current.Concat(record.Value).ToList());
+
     var stats = new StatReport
     {
-      AvgHighTemp = allRecordsInRange.Average(record => record.HighTemp),
-      MaxHighTemp = allRecordsInRange.Max(record => record.HighTemp),
-      MinHighTemp = allRecordsInRange.Min(record => record.HighTemp),
-      AvgLowTemp = allRecordsInRange.Average(record => record.LowTemp),
-      MaxLowTemp = allRecordsInRange.Max(record => record.LowTemp),
-      MinLowTemp = allRecordsInRange.Min(record => record.LowTemp),
-      AvgHumidity = allRecordsInRange.Average(record => record.Humidity),
-      MaxHumidity = allRecordsInRange.Max(record => record.Humidity),
-      MinHumidity = allRecordsInRange.Min(record => record.Humidity)
+      AvgHighTemp = records.Average(record => record.HighTemp),
+      MaxHighTemp = records.Max(record => record.HighTemp),
+      MinHighTemp = records.Min(record => record.HighTemp),
+      AvgLowTemp = records.Average(record => record.LowTemp),
+      MaxLowTemp = records.Max(record => record.LowTemp),
+      MinLowTemp = records.Min(record => record.LowTemp),
+      AvgHumidity = records.Average(record => record.Humidity),
+      MaxHumidity = records.Max(record => record.Humidity),
+      MinHumidity = records.Min(record => record.Humidity)
     };
 
     return new Result<StatReport> {IsSuccess = true, Data = stats};
