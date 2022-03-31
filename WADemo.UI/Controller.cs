@@ -36,6 +36,15 @@ public class Controller
         case MenuChoice.DeleteRecord:
           DeleteRecord();
           break;
+        case MenuChoice.Stats:
+          DisplayStats();
+          break;
+        case MenuChoice.Data:
+          DisplayData();
+          break;
+        case MenuChoice.Search:
+          Search();
+          break;
         case MenuChoice.Exit:
           isRunning = false;
           break;
@@ -149,5 +158,20 @@ public class Controller
       var message = record2Delete.Message;
       View.Display(string.IsNullOrEmpty(message) ? "Error deleting record!" : message);
     }
+  }
+
+  private void DisplayData()
+  {
+    throw new NotImplementedException();
+  }
+
+  private void DisplayStats()
+  {
+    throw new NotImplementedException();
+  }
+
+  private void Search()
+  {
+    throw new NotImplementedException();
   }
 }

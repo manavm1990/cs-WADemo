@@ -74,9 +74,12 @@ Select mode:
 3. Add Record
 4. Edit Record
 5. Delete Record
-6. Quit
+6.  Stats by Date Range
+7. Data by Month/Year
+8. Description Search
+9. Quit
 Enter Choice: 
-", 1, 6);
+", 1, 9);
   }
 
   // TODO: Consider reusing this method to also get date ranges for start and end dates
