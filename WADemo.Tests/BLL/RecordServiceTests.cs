@@ -27,7 +27,7 @@ public class RecordServiceTests
     // Assert
     Assert.IsTrue(result.IsSuccess);
     Assert.AreEqual(1, result.Data!.Count);
-    Assert.AreEqual(75, result.Data[0].HighTemp);
+    Assert.AreEqual(75, result.Data[DateOnly.Parse("01/01/2019")][0].HighTemp);
   }
 
   [Test]
@@ -80,7 +80,7 @@ public class RecordServiceTests
     Assert.IsTrue(result.IsSuccess);
     Assert.AreEqual("Record added successfully!", result.Message);
     Assert.AreEqual(2, records.Data!.Count);
-    Assert.AreEqual(85, records.Data[1].HighTemp);
+    Assert.AreEqual(85, records.Data[DateOnly.Parse("01/02/2019")][0].HighTemp);
   }
 
   [Test]
