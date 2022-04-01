@@ -84,9 +84,8 @@ Select mode:
 4. Edit Record
 5. Delete Record
 6. Stats by Date Range
-7. Data by Month/Year
-8. Description Search
-9. Quit
+7. Description Search
+8. Quit
 Enter Choice: 
 ", 1, 9);
   }
