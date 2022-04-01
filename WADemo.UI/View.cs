@@ -91,6 +91,11 @@ Enter Choice:
 ", 1, 9);
   }
 
+  internal static string GetSearchTerm()
+  {
+    return Validation.PromptRequired("Enter a search term: ");
+  }
+
   // TODO: Consider reusing this method to also get date ranges for start and end dates
   internal static DateOnly GetWeatherDate(string message = "Enter Record Date: ")
   {
