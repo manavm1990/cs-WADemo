@@ -72,8 +72,8 @@ public class Controller
 
   private void ViewRecords()
   {
-    var startDate = View.GetWeatherDate("Enter start date");
-    var endDate = View.GetWeatherDate("Enter end date");
+    var startDate = View.GetWeatherDate("Enter start date: ");
+    var endDate = View.GetWeatherDate("Enter end date: ");
 
     var records = _recordService.GetRecordsByRange(startDate, endDate);
 

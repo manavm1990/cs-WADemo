@@ -28,10 +28,10 @@ public static class View
   internal static void DisplayRecord(WeatherRecord record)
   {
     Display(@$"Date: {record.Date:MMMM dd, yyyy}
-High: [{record.HighTemp}] 
-Low: [{record.LowTemp}]
-Humidity: [{record.Humidity}%]
-Description: [{record.Description}]
+High: {record.HighTemp} 
+Low: {record.LowTemp}
+Humidity: {record.Humidity}%
+Description: {record.Description}
 ");
   }
 
