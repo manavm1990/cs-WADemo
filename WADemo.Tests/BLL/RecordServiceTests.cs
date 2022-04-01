@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using WADemo.BLL;
 using WADemo.Core.Interfaces;
@@ -19,22 +20,22 @@ public class RecordServiceTests
   }
 
   [Test]
-  public void Index_WithJan2019Range_ReturnsOneRecordWithHighTempOf75()
+  public void Index_WithJan2019Range_ReturnsJan2019Records()
   {
     // Act
     var result = _recordService!.GetRecordsByRange(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/31/2019"));
 
     // Assert
     Assert.IsTrue(result.IsSuccess);
-    Assert.AreEqual(1, result.Data!.Count);
-    Assert.AreEqual(75, result.Data[DateOnly.Parse("01/01/2019")][0].HighTemp);
+    Assert.AreEqual(2, result.Data!.Count);
+    Assert.AreEqual(80, result.Data[DateOnly.Parse("01/01/2019")][0].HighTemp);
   }
 
   [Test]
   public void Index_WithNonJan2019Range_ReturnsNoRecordsFoundInRangeMessage()
   {
     // Act
-    var result = _recordService!.GetRecordsByRange(DateOnly.Parse("02/01/2019"), DateOnly.Parse("02/28/2019"));
+    var result = _recordService!.GetRecordsByRange(DateOnly.Parse("02/01/2020"), DateOnly.Parse("02/28/2020"));
 
     // Assert
     Assert.IsFalse(result.IsSuccess);
@@ -42,12 +43,12 @@ public class RecordServiceTests
   }
 
   [Test]
-  public void GetRecordByDate_WithJan12019_ReturnsRecordWithHighTempOf75()
+  public void GetRecordByDate_WithJan12019_ReturnsRecordWithHighTempOf80()
   {
     var result = _recordService!.GetRecordByDate(DateOnly.Parse("01/01/2019"));
 
     Assert.IsTrue(result.IsSuccess);
-    Assert.AreEqual(75, result.Data!.HighTemp);
+    Assert.AreEqual(80, result.Data!.HighTemp);
   }
 
   [Test]
@@ -65,7 +66,7 @@ public class RecordServiceTests
     var record = new WeatherRecord
     {
       // ⚠️ Make sure it's not a duplicate date
-      Date = DateOnly.Parse("01/02/2019"),
+      Date = DateOnly.Parse("01/22/2019"),
 
       // ⚠️ Keep this distinctly different from the seed 🌱 data in MockRecordRepository.
       HighTemp = 85,
@@ -79,8 +80,8 @@ public class RecordServiceTests
 
     Assert.IsTrue(result.IsSuccess);
     Assert.AreEqual("Record added successfully!", result.Message);
-    Assert.AreEqual(2, records.Data!.Count);
-    Assert.AreEqual(85, records.Data[DateOnly.Parse("01/02/2019")][0].HighTemp);
+    Assert.AreEqual(3, records.Data!.Count);
+    Assert.AreEqual(85, records.Data[DateOnly.Parse("01/22/2019")][0].HighTemp);
   }
 
   [Test]
@@ -104,7 +105,7 @@ public class RecordServiceTests
     var record = new WeatherRecord
     {
       // ⚠️ Make sure it's not a duplicate date
-      Date = DateOnly.Parse("01/02/2019"),
+      Date = DateOnly.Parse("02/06/2019"),
       HighTemp = 85,
       LowTemp = 95,
       Humidity = 70,
@@ -140,7 +141,7 @@ public class RecordServiceTests
 
     // TODO: Add more asserts for additional fields
     Assert.AreEqual(95, updatedRecordByDate.Data!.HighTemp);
-    Assert.AreEqual(1, records.Data!.Count);
+    Assert.AreEqual(2, records.Data!.Count);
   }
 
   [Test]
