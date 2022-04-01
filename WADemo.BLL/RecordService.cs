@@ -33,8 +33,8 @@ public class RecordService : IRecordService
 
     var ret = allRecords.Where(weatherRecord => weatherRecord.Date >= startDate && weatherRecord.Date <= endDate)
 
-      // Group the records by the date
-      .GroupBy(record => new DateOnly(record.Date.Year, record.Date.Month, record.Date.Day))
+      // Group the records by the date - Use the same day for all of the things as that is irrelevant - only need month and year
+      .GroupBy(record => new DateOnly(record.Date.Year, record.Date.Month, 1))
 
       // Order the records by the date, by month and then by year
       .OrderBy(record => record.Key.Month).ThenBy(record => record.Key.Year)
