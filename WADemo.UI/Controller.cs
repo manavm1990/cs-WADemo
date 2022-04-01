@@ -82,7 +82,7 @@ public class Controller
       // Iterate over each grouped record in dictionary...key is date, value is list of records
       foreach (var (key, weatherRecords) in records.Data!)
       {
-        View.DisplayHeader($"{key.ToShortDateString()}");
+        View.DisplayHeader($"{key:MMM} - {key:yyyy}");
         foreach (var value in weatherRecords)
         {
           View.DisplayRecord(value);
