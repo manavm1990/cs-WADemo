@@ -41,7 +41,7 @@ public class MockRecordRepository : IRecordRepository
       },
       new()
       {
-        Date = DateOnly.Parse("2/3/2019"),
+        Date = DateOnly.Parse("2/5/2019"),
         Description = "Rainy and sunny 🌦️️",
         HighTemp = 50,
         LowTemp = 40,
