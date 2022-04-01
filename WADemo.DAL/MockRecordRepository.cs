@@ -18,11 +18,35 @@ public class MockRecordRepository : IRecordRepository
         // Set the fields for the WeatherRecord
         {
           Date = DateOnly.Parse("1/1/2019"),
-          Description = "Sunny",
-          HighTemp = 75,
-          LowTemp = 55,
+          Description = "Sunny 🌞",
+          HighTemp = 80,
+          LowTemp = 50,
           Humidity = 60,
-        }
+        },
+      new()
+      {
+        Date = DateOnly.Parse("1/2/2019"),
+        Description = "Still Sunny 🌞",
+        HighTemp = 70,
+        LowTemp = 60,
+        Humidity = 40
+      },
+      new()
+      {
+        Date = DateOnly.Parse("2/3/2019"),
+        Description = "Rainy 🌧️",
+        HighTemp = 90,
+        LowTemp = 60,
+        Humidity = 100
+      },
+      new()
+      {
+        Date = DateOnly.Parse("2/3/2019"),
+        Description = "Rainy and sunny 🌦️️",
+        HighTemp = 50,
+        LowTemp = 40,
+        Humidity = 90
+      }
     };
   }
 
