@@ -27,7 +27,10 @@ public class RecordServiceTests
 
     // Assert
     Assert.IsTrue(result.IsSuccess);
-    Assert.AreEqual(2, result.Data!.Count);
+
+    // The 🔑 is always the first date of the month so we can sort by month/year (date doesn't matter).
+    // Then the list has the real dates.
+    Assert.AreEqual(2, result.Data![DateOnly.Parse("01/01/2019")].Count);
     Assert.AreEqual(80, result.Data[DateOnly.Parse("01/01/2019")][0].HighTemp);
   }
 
@@ -80,8 +83,10 @@ public class RecordServiceTests
 
     Assert.IsTrue(result.IsSuccess);
     Assert.AreEqual("Record added successfully!", result.Message);
-    Assert.AreEqual(3, records.Data!.Count);
-    Assert.AreEqual(85, records.Data[DateOnly.Parse("01/22/2019")][0].HighTemp);
+    Assert.AreEqual(3, records.Data![DateOnly.Parse("01/01/2019")].Count);
+
+    // All keys are set to first day of month - only care about month and year
+    Assert.AreEqual(85, records.Data[DateOnly.Parse("01/01/2019")][2].HighTemp);
   }
 
   [Test]
@@ -141,7 +146,7 @@ public class RecordServiceTests
 
     // TODO: Add more asserts for additional fields
     Assert.AreEqual(95, updatedRecordByDate.Data!.HighTemp);
-    Assert.AreEqual(2, records.Data!.Count);
+    Assert.AreEqual(2, records.Data![DateOnly.Parse("01/01/2019")].Count);
   }
 
   [Test]
