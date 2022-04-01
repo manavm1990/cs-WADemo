@@ -36,7 +36,7 @@ internal static class ControllerFactory
     if (applicationMode == ApplicationMode.Live)
     {
       kernel.Bind<IRecordRepository>().To<CsvRecordRepository>()
-        .WithConstructorArgument("filename", DataDir + DataFile);
+        .WithConstructorArgument("fileName", DataDir + DataFile);
     }
     else
     {
