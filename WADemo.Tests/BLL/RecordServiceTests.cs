@@ -192,4 +192,13 @@ public class RecordServiceTests
     Assert.AreEqual(expected.MinHumidity, actual.Data!.MinHumidity);
     Assert.AreEqual(expected.MaxHumidity, actual.Data!.MaxHumidity);
   }
+
+  [Test]
+  public void SearchRecords_WithSunny_Returns3RecordsWithSunnyInDescription()
+  {
+    var records = _recordService!.SearchRecords("Sunny");
+
+    Assert.AreEqual(3, records.Data!.Count);
+    Assert.That(records.Data!.All(record => record.Description.ToLower().Contains("sunny")));
+  }
 }
