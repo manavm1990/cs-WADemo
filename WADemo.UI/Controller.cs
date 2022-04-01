@@ -183,6 +183,17 @@ public class Controller
 
   private void Search()
   {
-    throw new NotImplementedException();
+    var searchTerm = View.GetSearchTerm();
+
+    var searchResult = _recordService.SearchRecords(searchTerm);
+
+    if (searchResult.IsSuccess)
+    {
+      View.DisplayRecords(searchResult.Data!);
+    }
+    else
+    {
+      View.Display(searchResult.Message);
+    }
   }
 }

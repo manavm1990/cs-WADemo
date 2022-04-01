@@ -136,6 +136,26 @@ public class RecordService : IRecordService
     return new Result<StatReport> {IsSuccess = true, Data = stats};
   }
 
+  public Result<List<WeatherRecord>> SearchRecords(string searchTerm)
+  {
+    var allRecords = _recordRepository.Index().Data;
+
+    if (allRecords == null)
+    {
+      return new Result<List<WeatherRecord>> {IsSuccess = false, Message = "No records found!"};
+    }
+
+    var ret = allRecords.Where(record => record.Description.ToLower().Contains(searchTerm.ToLower()))
+      .ToList();
+
+    return ret.Count == 0
+      ? new Result<List<WeatherRecord>>
+      {
+        IsSuccess = false, Message = "No records found for the search term: " + searchTerm + "!"
+      }
+      : new Result<List<WeatherRecord>> {IsSuccess = true, Data = ret};
+  }
+
   private static string ValidateRecord(WeatherRecord record)
   {
     // Validation is light b/c most of it is handled by the view validation when getting inputs.
