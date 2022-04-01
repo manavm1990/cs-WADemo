@@ -163,4 +163,32 @@ public class RecordServiceTests
     Assert.IsFalse(deleteResult.IsSuccess);
     Assert.AreEqual("Record not found for date: 11/01/2019!", deleteResult.Message);
   }
+
+  [Test]
+  public void GetStats4Jan2019_ReturnsStatsForJan2019()
+  {
+    var expected = new StatReport
+    {
+      AvgHighTemp = 75,
+      MinHighTemp = 70,
+      MaxHighTemp = 80,
+      AvgLowTemp = 55,
+      MinLowTemp = 50,
+      MaxLowTemp = 60,
+      AvgHumidity = 50,
+      MinHumidity = 40,
+      MaxHumidity = 60
+    };
+    var actual = _recordService!.GetStatReport(DateOnly.Parse("01/01/2019"), DateOnly.Parse("01/31/2019"));
+
+    Assert.AreEqual(expected.AvgHighTemp, actual.Data!.AvgHighTemp);
+    Assert.AreEqual(expected.MinHighTemp, actual.Data!.MinHighTemp);
+    Assert.AreEqual(expected.MaxHighTemp, actual.Data!.MaxHighTemp);
+    Assert.AreEqual(expected.AvgLowTemp, actual.Data!.AvgLowTemp);
+    Assert.AreEqual(expected.MinLowTemp, actual.Data!.MinLowTemp);
+    Assert.AreEqual(expected.MaxLowTemp, actual.Data!.MaxLowTemp);
+    Assert.AreEqual(expected.AvgHumidity, actual.Data!.AvgHumidity);
+    Assert.AreEqual(expected.MinHumidity, actual.Data!.MinHumidity);
+    Assert.AreEqual(expected.MaxHumidity, actual.Data!.MaxHumidity);
+  }
 }
