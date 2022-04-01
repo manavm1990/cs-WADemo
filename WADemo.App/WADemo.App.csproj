@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WADemo.BLL\WADemo.BLL.csproj"/>
-    <ProjectReference Include="..\WADemo.DAL\WADemo.DAL.csproj"/>
-    <ProjectReference Include="..\WADemo.UI\WADemo.UI.csproj"/>
+    <ProjectReference Include="..\WADemo.BLL\WADemo.BLL.csproj" />
+    <ProjectReference Include="..\WADemo.DAL\WADemo.DAL.csproj" />
+    <ProjectReference Include="..\WADemo.UI\WADemo.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ninject" Version="3.3.4"/>
+    <PackageReference Include="Ninject" Version="3.3.4" />
   </ItemGroup>
 
 </Project>

@@ -8,8 +8,8 @@ public static class Startup
 {
   internal static void Run()
   {
-    var controller = new Controller(ServiceFactory.GetRecordService((ApplicationMode)View.GetApplicationMode(),
-      (LoggingMode)View.GetLoggingMode()));
+    var controller = ControllerFactory.GetController((ApplicationMode)View.GetApplicationMode(),
+      (LoggingMode)View.GetLoggingMode());
     controller.Run();
   }
 }
