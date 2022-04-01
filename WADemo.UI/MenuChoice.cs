@@ -8,7 +8,6 @@ public enum MenuChoice
   EditRecord,
   DeleteRecord,
   Stats,
-  Data,
   Search,
   Exit
 }
